@@ -1,6 +1,7 @@
 package android.realproject.trackerfood.ui.fragments
 
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
+import android.realproject.trackerfood.data.viewModel.AlertViewModel
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.model.date.Date
 import android.realproject.trackerfood.model.navigation.Screen
@@ -21,7 +22,8 @@ import androidx.navigation.NavController
 fun ListFoodFragment(
     viewModel: MainViewModel,
     addFoodViewModel: AddFoodViewModel,
-    navController: NavController
+    navController: NavController,
+    alertViewModel: AlertViewModel
 ) {
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
@@ -35,6 +37,9 @@ fun ListFoodFragment(
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             },
+            navController = navController,
+            viewModel = viewModel,
+            alertViewModel = alertViewModel
         )
         CountCaloric(
             modifier = Modifier.constrainAs(countCal) {

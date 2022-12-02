@@ -106,7 +106,7 @@ class AddFoodViewModel(
                 FoodEntity(
                     foodName = foodName,
                     calories = resCal,
-                    data = Date.getDayFood(Date.getCurrentDate()),
+                    data = Date.getCurrentDate(),
                     emogi = emojiToFood
                 )
             )
@@ -114,6 +114,7 @@ class AddFoodViewModel(
         foodName = ""
         calories = ""
         emojiToFood = ""
+        weight = ""
     }
 
 }

@@ -1,19 +1,23 @@
 package android.realproject.trackerfood.data.db
 
 import android.app.Application
+import android.realproject.trackerfood.data.db.avatar_db.AvatarDao
+import android.realproject.trackerfood.data.db.avatar_db.AvatarEntity
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
     entities = [
-        FoodEntity::class
+        FoodEntity::class,
+        AvatarEntity::class
     ],
-    version = 1
+    version = 2
 )
 abstract class ApplicationDataBase: RoomDatabase() {
 
     abstract fun foodDao(): FoodDao
+    abstract fun avatarDao(): AvatarDao
 
     companion object {
         @Volatile var INSTANCE: ApplicationDataBase? = null
@@ -26,7 +30,7 @@ abstract class ApplicationDataBase: RoomDatabase() {
                         application,
                         ApplicationDataBase::class.java,
                         "food.db"
-                    ).allowMainThreadQueries().build()
+                    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
                 }
 
                 INSTANCE = instance
