@@ -29,7 +29,7 @@ fun ListFood(
             .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(viewModel.getAllFood.size) {
+        items(viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate())).size) {
 
             Container {
                 ListFoodElement(viewModel = viewModel, index = it)

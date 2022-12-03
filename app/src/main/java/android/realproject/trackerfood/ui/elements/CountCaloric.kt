@@ -2,14 +2,21 @@ package android.realproject.trackerfood.ui.elements
 
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
 import android.realproject.trackerfood.data.viewModel.MainViewModel
+import android.realproject.trackerfood.model.date.Date
 import android.realproject.trackerfood.ui.theme.GreenApp
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.snapping.SnapLayoutInfoProvider
+import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,11 +24,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CountCaloric(
     modifier: Modifier,
     viewModel: MainViewModel
 ) {
+    var indexDay by remember {
+        mutableStateOf(0)
+    }
+    val state = rememberLazyListState()
+    val snappingLayout = remember(state) { SnapLayoutInfoProvider(state) }
+    val flingBehavior = rememberSnapFlingBehavior(snappingLayout)
+
     Column(
         modifier = Modifier
             .fillMaxWidth(.95f)
@@ -30,31 +45,49 @@ fun CountCaloric(
             .then(modifier)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(2f)
-                .background(Color.Black),
+            modifier = Modifier.fillMaxWidth().background(Color.Black).weight(2f),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "День", color = Color.White, modifier = Modifier.padding(horizontal = 20.dp))
-            Text(text = "Неделя", color = Color.Gray, modifier = Modifier.padding(horizontal = 20.dp))
-            Text(text = "Месяц", color = Color.Gray, modifier = Modifier.padding(horizontal = 20.dp))
-            Text(text = "Год", color = Color.Gray, modifier = Modifier.padding(horizontal = 20.dp))
+            for (i in 0 until viewModel.sortCalByDayCount.size) {
+                Text(
+                    text = viewModel.sortCalByDayCount[i].value.title,
+                    color = if(indexDay == i) Color.White else Color.Gray,
+                    modifier = Modifier.padding(horizontal = 20.dp)
+
+                )
+
+            }
+
         }
-        Box(
+        LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(9f)
-                .background(GreenApp),
-            contentAlignment = Alignment.Center
+                .background(Color.Black),
+            verticalAlignment = Alignment.CenterVertically,
+            state = state,
+            flingBehavior = flingBehavior
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = "${viewModel.calculateCaloric()}", style = MaterialTheme.typography.h4, color = Color.White)
-                Text(text = "Каллорий", style = MaterialTheme.typography.subtitle2, color = Color.White)
+
+            items(viewModel.sortCalByDayCount.size) {
+                indexDay = it
+                Box(
+                    modifier = Modifier
+                        .fillParentMaxSize()
+                        .background(GreenApp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(text = "${viewModel.calculateCaloric(Date.getDayFood(Date.getCurrentDate()), it)}", style = MaterialTheme.typography.h4, color = Color.White)
+                        Text(text = "Каллорий", style = MaterialTheme.typography.subtitle2, color = Color.White)
+                    }
+                }
             }
         }
+
+
     }
 }
 

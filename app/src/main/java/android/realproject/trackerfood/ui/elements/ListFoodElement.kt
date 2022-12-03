@@ -32,12 +32,12 @@ fun ListFoodElement(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column() {
-                Text(text = viewModel.getAllFood[index].foodName, fontWeight = FontWeight.Bold)
-                Text(text = "${viewModel.getAllFood[index].calories} калорий", color = Color.Gray)
+                Text(text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].foodName, fontWeight = FontWeight.Bold)
+                Text(text = "${viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].calories} калорий", color = Color.Gray)
             }
-            Text(text = Date.getHourMin(viewModel.getAllFood[index].data), style = MaterialTheme.typography.button)
 
-            Text(text = viewModel.getAllFood[index].emogi, style = MaterialTheme.typography.h3)
+            Text(text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].time, style = MaterialTheme.typography.button)
+            Text(text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].emogi, style = MaterialTheme.typography.h3)
 
         }
     }

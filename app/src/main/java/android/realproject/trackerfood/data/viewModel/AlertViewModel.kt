@@ -21,7 +21,7 @@ class AlertViewModel(
         changeState()
     }
     fun deleteCurrentAvatar() {
-        mainViewModel.deleteAvatar(mainViewModel.getAllAvatar.last())
+        mainViewModel.deleteAvatar(mainViewModel.getAllAvatar().last())
         changeState()
     }
     fun deleteAllAvatar() {

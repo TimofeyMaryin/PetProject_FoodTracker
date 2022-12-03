@@ -72,6 +72,15 @@ class AddFoodViewModel(
         "\uD83E\uDDC3", "\uD83E\uDD64", "\uD83C\uDF76", "\uD83C\uDF7A", "\uD83C\uDF77",
         "\uD83C\uDF7E", "\uD83E\uDD61", "\uD83E\uDD63"
     )
+    val listOfProductName = listOf(
+        "Hamburger",
+        "Pizza",
+        "Potato",
+        "Morkov",
+        "Kapysta",
+        "Poshel nahyi"
+    )
+
 
     var emojiToFood by mutableStateOf("")
 
@@ -106,8 +115,9 @@ class AddFoodViewModel(
                 FoodEntity(
                     foodName = foodName,
                     calories = resCal,
-                    data = Date.getCurrentDate(),
-                    emogi = emojiToFood
+                    data = Date.getDayFood(Date.getCurrentDate()),
+                    emogi = emojiToFood,
+                    time = Date.getHourMin(Date.getCurrentDate())
                 )
             )
         }

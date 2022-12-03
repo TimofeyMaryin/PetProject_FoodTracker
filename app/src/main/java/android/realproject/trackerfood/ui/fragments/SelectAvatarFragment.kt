@@ -41,19 +41,7 @@ fun SelectAvatarFragment(
                 start.linkTo(parent.start)
             }
         )
-        if (viewModel.isSelectAvatar()) {
-            FAB(
-                modifier = Modifier.constrainAs(confirmAvatar) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom, margin = 30.dp)
-                },
-                onClickAction = {
-                    navController.popBackStack()
-                },
-                icon = Icons.Default.Done
-            )
-        }
+
 
     }
 }

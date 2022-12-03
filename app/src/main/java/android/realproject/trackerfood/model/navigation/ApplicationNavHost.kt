@@ -30,10 +30,12 @@ fun ApplicationNavHost(
                 alertViewModel = alertViewModel
             )
         }
-        composable(Screen.AddFoodScreen.route) {
+        composable("${Screen.AddFoodScreen.route}/{rand_index}") {
+            val randIndex = it.arguments?.getString("rand_index", "3")
             AddFoodFragment(
                 navController = navController,
-                addFoodViewModel = addFoodViewModel
+                addFoodViewModel = addFoodViewModel,
+                randomFoodIndex = randIndex!!.toInt()
             )
         }
 

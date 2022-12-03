@@ -40,7 +40,7 @@ fun AvatarGridList(
         items(viewModel.imageUrl.size) {
             Container {
                 AsyncImage(
-                    model = viewModel.imageUrl[it].value.url,
+                    model = viewModel.imageUrl[it],
                     contentDescription = null,
                     modifier = Modifier
                         .clickable { viewModel.selectImage(it) }

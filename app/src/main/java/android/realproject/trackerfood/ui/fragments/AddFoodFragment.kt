@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -25,11 +25,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlin.random.Random
 
 @Composable
 fun AddFoodFragment(
     navController: NavController,
-    addFoodViewModel: AddFoodViewModel
+    addFoodViewModel: AddFoodViewModel,
+    randomFoodIndex: Int,
 ) {
     AppAlertDialog(addFoodViewModel = addFoodViewModel)
     ConstraintLayout(
@@ -46,13 +48,11 @@ fun AddFoodFragment(
             addFoodViewModel = addFoodViewModel,
         )
 
-
-
         AddFoodEnterValue(addFoodViewModel = addFoodViewModel, modifier = Modifier.constrainAs(addFoodElement){
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-        })
+        }, randomFoodIndex = randomFoodIndex)
 
         Row(
             modifier = Modifier
@@ -63,7 +63,7 @@ fun AddFoodFragment(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            /** FAB BACK */
+            /** FAB BACK **/
             Container {
                 FAB(
                     modifier = Modifier,

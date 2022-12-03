@@ -45,6 +45,8 @@ fun AppTopBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        val userAvatar by remember { mutableStateOf(viewModel.getAllAvatar().last().url) }
+        var randomInd by remember { mutableStateOf(0) }
         Column(
             modifier = Modifier.weight(2f)
         ) {
@@ -54,9 +56,7 @@ fun AppTopBar(
                 color = Color.White.copy(.98f),
                 fontWeight = FontWeight.Bold,
             )
-            var randomInd by remember {
-                mutableStateOf(0)
-            }
+
             Log.e("AppTopBar", "RandomInd: $randomInd", )
             Text(
                 text = viewModel.listOfMotivationPhrases[randomInd],
@@ -84,7 +84,7 @@ fun AppTopBar(
                 contentAlignment = Alignment.Center
             ) {
                 AsyncImage(
-                    model = if(viewModel.checkAvailabilityAvatar()) defAvatar else viewModel.getAllAvatar.last().url,
+                    model = if(viewModel.checkAvailabilityAvatar()) defAvatar else userAvatar,
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop

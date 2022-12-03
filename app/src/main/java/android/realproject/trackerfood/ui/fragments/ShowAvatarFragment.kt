@@ -75,7 +75,7 @@ fun ShowAvatarFragment(
             state = state,
             flingBehavior = flingBehavior
         ) {
-            items(mainViewModel.getAllAvatar.size) {
+            items(mainViewModel.getAllAvatar().size) {
                 Box(
                    modifier = Modifier
                        .height(400.dp)
@@ -85,7 +85,7 @@ fun ShowAvatarFragment(
                     contentAlignment = Alignment.Center
                 ) {
                     AsyncImage(
-                        model = mainViewModel.getAllAvatar[it].url,
+                        model = mainViewModel.getAllAvatar()[it].url,
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop

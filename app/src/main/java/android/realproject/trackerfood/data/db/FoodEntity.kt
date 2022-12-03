@@ -12,4 +12,5 @@ data class FoodEntity(
     @ColumnInfo(name = "calories") val calories: Int,
     @ColumnInfo(name = "emogi") val emogi: String,
     @ColumnInfo(name = "data") val data: String,
+    @ColumnInfo(name = "time") val time: String
 )

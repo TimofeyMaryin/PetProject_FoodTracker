@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase
         FoodEntity::class,
         AvatarEntity::class
     ],
-    version = 2
+    version = 3
 )
 abstract class ApplicationDataBase: RoomDatabase() {
 

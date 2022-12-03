@@ -12,7 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,12 +22,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import java.util.Random
+import kotlin.random.Random.Default.nextInt
 
 @Composable
 fun AddFoodEnterValue(
     addFoodViewModel: AddFoodViewModel,
-    modifier: Modifier
+    modifier: Modifier,
+    randomFoodIndex: Int
 ) {
+
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
@@ -41,22 +46,21 @@ fun AddFoodEnterValue(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            AppTextField(
+                value = addFoodViewModel.foodName,
+                onChangeValue = { addFoodViewModel.setCountCalorieValue(it, 1) },
+                placeholder = addFoodViewModel.listOfProductName[randomFoodIndex],
+                countCal = addFoodViewModel.calculateCal(),
+                selectCalInfo = true,
+                keyboardType = KeyboardType.Text
+            )
             AppTextField(
                 value = addFoodViewModel.calories,
                 onChangeValue = { addFoodViewModel.setCountCalorieValue(it, 0) },
                 placeholder = "Укажите кол-во каллорий за 100 грамм",
                 countCal = addFoodViewModel.calories
             )
-
-            AppTextField(
-                value = addFoodViewModel.foodName,
-                onChangeValue = { addFoodViewModel.setCountCalorieValue(it, 1) },
-                placeholder = "Hamburger",
-                countCal = addFoodViewModel.calculateCal(),
-                selectCalInfo = true,
-                keyboardType = KeyboardType.Text
-            )
-
             AppTextField(
                 value = addFoodViewModel.weight,
                 onChangeValue = { addFoodViewModel.setCountCalorieValue(it, 2) },
@@ -67,7 +71,9 @@ fun AddFoodEnterValue(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start,
-                modifier = Modifier.padding(top = 20.dp).clickable { addFoodViewModel.openAlertDialog() }
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .clickable { addFoodViewModel.openAlertDialog() }
             ) {
                 Box(
                     modifier = Modifier

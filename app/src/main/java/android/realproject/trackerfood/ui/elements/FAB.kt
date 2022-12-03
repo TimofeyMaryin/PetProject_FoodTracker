@@ -50,6 +50,7 @@ fun FAB(
 
     onClickUndoLong: () -> Unit,
     onClickAfterLong: () -> Unit,
+    onLongClick: () -> Unit
 
 ) {
 
@@ -62,6 +63,7 @@ fun FAB(
             .background(if(isLongTouched) Color.Red else Color.Gray)
             .combinedClickable(
                 onLongClick = {
+                    onLongClick()
                     isLongTouched = !isLongTouched
                 },
                 onClick = {
