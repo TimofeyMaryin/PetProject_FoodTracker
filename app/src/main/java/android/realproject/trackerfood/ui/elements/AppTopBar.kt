@@ -45,7 +45,15 @@ fun AppTopBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val userAvatar by remember { mutableStateOf(viewModel.getAllAvatar().last().url) }
+        val userAvatar by remember {
+            mutableStateOf(
+                if(viewModel.getAllAvatar().size != 0) {
+                    viewModel.getAllAvatar().last().url
+                } else {
+                    "https://i.pinimg.com/564x/28/86/8c/28868c4b45558019fa6e3bafd0fc4c1f.jpg"
+                }
+            )
+        }
         var randomInd by remember { mutableStateOf(0) }
         Column(
             modifier = Modifier.weight(2f)

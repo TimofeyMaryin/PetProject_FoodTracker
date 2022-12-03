@@ -14,6 +14,7 @@ import android.realproject.trackerfood.ui.elements.AppTopBar
 import android.realproject.trackerfood.ui.elements.CountCaloric
 import android.realproject.trackerfood.ui.elements.FAB
 import android.realproject.trackerfood.ui.elements.ListFood
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import kotlin.random.Random
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun ListFoodFragment(
     viewModel: MainViewModel,
@@ -68,8 +70,9 @@ fun ListFoodFragment(
                 },
             viewModel = viewModel,
         )
-        val context = LocalContext.current
         var randIndex by remember { mutableStateOf(0) }
+        val context = LocalContext.current
+
         FAB(
             modifier = Modifier.constrainAs(fab) {
                 bottom.linkTo(parent.bottom, margin = 30.dp)
@@ -87,15 +90,13 @@ fun ListFoodFragment(
                 addFoodViewModel.deleteDb()
             },
             onLongClick = {
-                vibratePhone(context = context)
+                val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                val vibrationEffect: VibrationEffect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+                vibrator.cancel()
+                vibrator.vibrate(vibrationEffect)
             }
         )
     }
 
 }
 
-
-private fun vibratePhone(context: Context) {
-    val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-    vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
-}
