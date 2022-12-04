@@ -2,6 +2,7 @@ package android.realproject.trackerfood.data.viewModel
 
 import android.realproject.trackerfood.R
 import android.realproject.trackerfood.data.db.FoodEntity
+import android.realproject.trackerfood.model.InstanceProduct
 import android.realproject.trackerfood.model.date.Date
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -132,6 +133,18 @@ class AddFoodViewModel(
 
     fun validateCreateFoodElement(): Boolean = foodName.isNotEmpty() && weight.isNotEmpty() && calories.isNotEmpty()
 
+
+
+    val listOfProductWithCal = listOf(
+        InstanceProduct("Ацидофилин 1%" , 40),
+        InstanceProduct("Ацидофилин 3,2% сладкий" , 77),
+        InstanceProduct("Брынза (из коровьего молока)" , 262),
+        InstanceProduct("Йогурт 1,5% плодово-ягодный" , 90),
+        InstanceProduct("Кефир 3,2%" , 59),
+        InstanceProduct("Масса творожная 16,5% жирности" , 232),
+        InstanceProduct("Кумыс нежирный (из коровьего молока)" , 41),
+        InstanceProduct("Молоко сгущённое с сахаром 8,5%" , 328),
+    )
 }
 
 

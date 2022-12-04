@@ -2,6 +2,8 @@ package android.realproject.trackerfood.ui.elements
 
 import android.realproject.trackerfood.R
 import android.realproject.trackerfood.data.viewModel.SettingViewModel
+import android.realproject.trackerfood.ui.elements.alert.AlertContainer
+import android.realproject.trackerfood.ui.elements.alert.SettingAlert
 import android.text.BoringLayout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,30 +32,35 @@ fun SettingElement(
     settingViewModel: SettingViewModel,
     modifier: Modifier
 ) {
+
     LazyColumn(
         modifier = Modifier
-            .fillMaxWidth(.9f)
-            .background(Color.Gray)
-            .clip(RoundedCornerShape(30.dp))
+            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+            .fillMaxWidth(.95f)
+            .fillMaxHeight(.75f)
+            .background(Color.Black)
             .then(modifier),
         horizontalAlignment = Alignment.Start
     ) {
         item {
             Text(
                 text = "Настройки приложения",
-                color = Color.Black,
-                fontWeight = FontWeight.Light,
-                modifier = Modifier.padding(DEFAULT_PADDING)
+                color = Color.White.copy(.6f),
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = DEFAULT_PADDING, vertical = DEFAULT_PADDING+10.dp)
             )
         }
         items(settingViewModel.listOfSettingsItemApplication.size){
             SettingElementItemApp(settingViewModel = settingViewModel, index = it)
         }
 
-        item {
-            Text(text = "Остальные настройки" , color = Color.Gray, fontWeight = FontWeight.Light)
-        }
     }
+
+    AlertContainer(
+        contentAlert = { SettingAlert() },
+        openDialog = settingViewModel.sliderAlertDialogState,
+        onDismissRequest = { settingViewModel.changeState() }
+    )
 }
 
 
@@ -67,7 +74,7 @@ private fun SettingElementItemApp(
 
     Row(
         modifier = Modifier
-            .padding(horizontal = DEFAULT_PADDING, vertical = 15.dp)
+            .padding(horizontal = DEFAULT_PADDING, vertical = DEFAULT_PADDING)
             .fillMaxWidth()
             .clickable {
                 if (!currentElement.isCheckBox) {
@@ -84,7 +91,8 @@ private fun SettingElementItemApp(
             color = Color.White,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
-            modifier = Modifier.fillMaxWidth(.5f)
+            modifier = Modifier.fillMaxWidth(.7f),
+            overflow = TextOverflow.Ellipsis
         )
         if (currentElement.isCheckBox) {
             Checkbox(

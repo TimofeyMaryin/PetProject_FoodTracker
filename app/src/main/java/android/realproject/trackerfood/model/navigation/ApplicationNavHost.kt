@@ -17,7 +17,8 @@ fun ApplicationNavHost(
     addFoodViewModel: AddFoodViewModel,
     selectImageViewModel: SelectImageViewModel,
     alertViewModel: AlertViewModel,
-    settingViewModel: SettingViewModel
+    settingViewModel: SettingViewModel,
+    selectContentForBgViewModel: SelectContentForBgViewModel
 ) {
     NavHost(navController = navController, startDestination = Screen.ListFoodScreen.route ) {
         composable(Screen.ListFoodScreen.route) {
@@ -53,7 +54,21 @@ fun ApplicationNavHost(
             SettingFragment(
                 navController,
                 addFoodViewModel,
-                settingViewModel = settingViewModel
+                settingViewModel = settingViewModel,
+                mainViewModel = viewModel
+            )
+        }
+
+        composable(Screen.SelectBgScreen.route) {
+            SelectBgFragment(navController = navController)
+        }
+
+        composable("${Screen.ChooseBgContent.route}/{type_content}") {
+            val type = it.arguments?.getString("type_content", "0")
+            ChooseBgContentFragment(
+                type = type!!.toInt(),
+                selectContentForBgViewModel,
+                navController = navController
             )
         }
     }

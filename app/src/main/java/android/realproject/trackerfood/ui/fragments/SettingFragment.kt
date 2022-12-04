@@ -1,10 +1,13 @@
 package android.realproject.trackerfood.ui.fragments
 
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
+import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.data.viewModel.SettingViewModel
 import android.realproject.trackerfood.ui.elements.ApplicationBottomBar
 import android.realproject.trackerfood.ui.elements.BackgroundIllustration
 import android.realproject.trackerfood.ui.elements.SettingElement
+import android.realproject.trackerfood.ui.elements.TopBarSetting
+import android.realproject.trackerfood.ui.elements.alert.AlertContainer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
@@ -24,29 +27,25 @@ import androidx.compose.ui.unit.dp
 fun SettingFragment(
     navController: NavController,
     addFoodViewModel: AddFoodViewModel,
-    settingViewModel: SettingViewModel
+    settingViewModel: SettingViewModel,
+    mainViewModel: MainViewModel
 ) {
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
         val (bottomBar, topBg, topBar, settingsItem) = createRefs()
 
-        Text(
-            text = "Настройки",
-            style = MaterialTheme.typography.h4,
-            color = Color.White,
-            fontWeight = Bold,
-            modifier = Modifier.constrainAs(topBar) {
-                top.linkTo(parent.top, margin = 20.dp)
-                start.linkTo(parent.start, margin = 20.dp)
-            }
-        )
-
         BackgroundIllustration(modifier = Modifier.constrainAs(topBg) {
             top.linkTo(parent.top, margin = (-10).dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         })
+
+        TopBarSetting(modifier = Modifier.constrainAs(topBar) {
+            top.linkTo(parent.top, margin = 20.dp)
+            start.linkTo(parent.start, margin = 20.dp)
+        }, mainViewModel = mainViewModel)
+
 
         SettingElement(settingViewModel = settingViewModel, modifier = Modifier.constrainAs(settingsItem) {
             bottom.linkTo(bottomBar.top)
@@ -62,4 +61,8 @@ fun SettingFragment(
             addFoodViewModel = addFoodViewModel
         )
     }
+
+
 }
+
+

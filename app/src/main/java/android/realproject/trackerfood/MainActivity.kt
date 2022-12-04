@@ -5,10 +5,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.realproject.trackerfood.data.viewModel.*
-import android.realproject.trackerfood.data.viewModel.viewModelFactory.AddFoodViewModelFactory
-import android.realproject.trackerfood.data.viewModel.viewModelFactory.AlertViewModelFactory
-import android.realproject.trackerfood.data.viewModel.viewModelFactory.MainViewModelFactory
-import android.realproject.trackerfood.data.viewModel.viewModelFactory.SelectImageViewModelFactory
+import android.realproject.trackerfood.data.viewModel.viewModelFactory.*
 import android.realproject.trackerfood.model.navigation.ApplicationNavHost
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +20,7 @@ import android.realproject.trackerfood.ui.theme.TrackerFoodTheme
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
 
 
@@ -66,7 +64,23 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     )
-                    val settingViewModel: SettingViewModel by viewModels()
+                    val settingViewModel: SettingViewModel by viewModels(
+                        factoryProducer = {
+                            SettingViewModelFactory(
+                                navController = navController
+                            )
+                        }
+                    )
+                    val context = LocalContext.current
+                    val selectContentForBgViewModel: SelectContentForBgViewModel by viewModels(
+                        factoryProducer = {
+                            SelectContentForBgViewModelFactory(
+                                navController = navController,
+                                mainViewModel = mainViewModel,
+                                context = context
+                            )
+                        }
+                    )
 
                     ApplicationNavHost(
                         navController = navController,
@@ -74,7 +88,8 @@ class MainActivity : ComponentActivity() {
                         addFoodViewModel = addFoodViewModel,
                         selectImageViewModel = selectImageViewModel,
                         alertViewModel = alertViewModel,
-                        settingViewModel = settingViewModel
+                        settingViewModel = settingViewModel,
+                        selectContentForBgViewModel = selectContentForBgViewModel
                     )
                 }
             }
