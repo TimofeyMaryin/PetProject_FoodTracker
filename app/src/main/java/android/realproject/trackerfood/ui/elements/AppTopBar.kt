@@ -78,8 +78,7 @@ fun AppTopBar(
         }
         IconButton(
             onClick = {
-                //navController.navigate(Screen.SelectAvatarScreen.route)
-                alertViewModel.changeState()
+                alertViewModel.changeState(0)
             },
             modifier = Modifier.weight(1f)
         ) {
@@ -107,6 +106,6 @@ fun AppTopBar(
             ActionForAvatarsAlert(viewModel = alertViewModel)
         },
         openDialog = alertViewModel.openActionMenuAvatar,
-        onDismissRequest = { alertViewModel.changeState() }
+        onDismissRequest = { alertViewModel.changeState(0) }
     )
 }

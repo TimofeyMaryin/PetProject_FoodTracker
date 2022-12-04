@@ -2,11 +2,9 @@ package android.realproject.trackerfood
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
-import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
-import android.realproject.trackerfood.data.viewModel.AlertViewModel
-import android.realproject.trackerfood.data.viewModel.MainViewModel
-import android.realproject.trackerfood.data.viewModel.SelectImageViewModel
+import android.realproject.trackerfood.data.viewModel.*
 import android.realproject.trackerfood.data.viewModel.viewModelFactory.AddFoodViewModelFactory
 import android.realproject.trackerfood.data.viewModel.viewModelFactory.AlertViewModelFactory
 import android.realproject.trackerfood.data.viewModel.viewModelFactory.MainViewModelFactory
@@ -24,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import android.realproject.trackerfood.ui.theme.TrackerFoodTheme
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.navigation.compose.rememberNavController
 
 
@@ -32,6 +31,7 @@ import androidx.navigation.compose.rememberNavController
 class MainActivity : ComponentActivity() {
 
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -66,12 +66,15 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     )
+                    val settingViewModel: SettingViewModel by viewModels()
+
                     ApplicationNavHost(
                         navController = navController,
                         viewModel = mainViewModel,
                         addFoodViewModel = addFoodViewModel,
                         selectImageViewModel = selectImageViewModel,
-                        alertViewModel = alertViewModel
+                        alertViewModel = alertViewModel,
+                        settingViewModel = settingViewModel
                     )
                 }
             }

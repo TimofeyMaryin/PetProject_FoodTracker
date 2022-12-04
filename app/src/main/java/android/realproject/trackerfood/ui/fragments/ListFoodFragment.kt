@@ -10,10 +10,7 @@ import android.realproject.trackerfood.data.viewModel.AlertViewModel
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.model.date.Date
 import android.realproject.trackerfood.model.navigation.Screen
-import android.realproject.trackerfood.ui.elements.AppTopBar
-import android.realproject.trackerfood.ui.elements.CountCaloric
-import android.realproject.trackerfood.ui.elements.FAB
-import android.realproject.trackerfood.ui.elements.ListFood
+import android.realproject.trackerfood.ui.elements.*
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,7 +34,7 @@ fun ListFoodFragment(
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (topBar, list, fab, countCal) = createRefs()
+        val (topBar, list, fab, countCal, bottomBar) = createRefs()
 
         AppTopBar(
             categoryText = Date.getDateToday(),
@@ -64,38 +61,23 @@ fun ListFoodFragment(
                 .fillMaxHeight(.4f)
                 .constrainAs(list) {
                     top.linkTo(countCal.bottom)
-                    bottom.linkTo(parent.bottom)
+                    bottom.linkTo(bottomBar.top, margin = 2.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
             viewModel = viewModel,
         )
-        var randIndex by remember { mutableStateOf(0) }
-        val context = LocalContext.current
 
-        FAB(
-            modifier = Modifier.constrainAs(fab) {
-                bottom.linkTo(parent.bottom, margin = 30.dp)
+
+
+
+        ApplicationBottomBar(
+            navController = navController,
+            modifier = Modifier.constrainAs(bottomBar) {
+                bottom.linkTo(parent.bottom)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            },
-            onClickUndoLong = {
-                randIndex = Random.nextInt(from = 0,until = addFoodViewModel.listOfProductName.size)
-
-                addFoodViewModel.generateRandomImage()
-                addFoodViewModel.generateRandomEmoji()
-                navController.navigate("${Screen.AddFoodScreen.route}/$randIndex")
-            },
-            onClickAfterLong = {
-                addFoodViewModel.deleteDb()
-            },
-            onLongClick = {
-                val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                val vibrationEffect: VibrationEffect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
-                vibrator.cancel()
-                vibrator.vibrate(vibrationEffect)
-            }
-        )
+            }, addFoodViewModel)
     }
 
 }

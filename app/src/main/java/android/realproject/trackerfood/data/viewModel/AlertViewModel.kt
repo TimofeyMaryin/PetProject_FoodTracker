@@ -14,25 +14,31 @@ class AlertViewModel(
 ):ViewModel() {
     fun showAvatar() {
         navController.navigate(Screen.ShowAvatarCarouselScreen.route)
-        changeState()
+        changeState(0)
     }
     fun selectNewAvatar() {
         navController.navigate(Screen.SelectAvatarScreen.route)
-        changeState()
+        changeState(0)
     }
     fun deleteCurrentAvatar() {
         mainViewModel.deleteAvatar(mainViewModel.getAllAvatar().last())
-        changeState()
+        changeState(0)
     }
     fun deleteAllAvatar() {
         mainViewModel.deleteAllAvatar()
-        changeState()
+        changeState(0)
     }
 
     var openActionMenuAvatar by mutableStateOf(false)
         private set
-    fun changeState() = run { openActionMenuAvatar = !openActionMenuAvatar }
+    fun changeState(index: Int) = run {
+        when(index) {
+            0 -> openActionMenuAvatar = !openActionMenuAvatar
+            1 -> openActionHintCalories = !openActionHintCalories
+        }
+    }
 
-
+    var openActionHintCalories by mutableStateOf(false)
+        private set
 
 }

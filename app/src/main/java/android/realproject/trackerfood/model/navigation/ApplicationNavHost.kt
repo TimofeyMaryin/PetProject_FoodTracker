@@ -1,25 +1,23 @@
 package android.realproject.trackerfood.model.navigation
 
-import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
-import android.realproject.trackerfood.data.viewModel.AlertViewModel
-import android.realproject.trackerfood.data.viewModel.MainViewModel
-import android.realproject.trackerfood.data.viewModel.SelectImageViewModel
-import android.realproject.trackerfood.ui.fragments.AddFoodFragment
-import android.realproject.trackerfood.ui.fragments.ListFoodFragment
-import android.realproject.trackerfood.ui.fragments.SelectAvatarFragment
-import android.realproject.trackerfood.ui.fragments.ShowAvatarFragment
+import android.os.Build
+import android.realproject.trackerfood.data.viewModel.*
+import android.realproject.trackerfood.ui.fragments.*
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun ApplicationNavHost(
     navController: NavHostController,
     viewModel: MainViewModel,
     addFoodViewModel: AddFoodViewModel,
     selectImageViewModel: SelectImageViewModel,
-    alertViewModel: AlertViewModel
+    alertViewModel: AlertViewModel,
+    settingViewModel: SettingViewModel
 ) {
     NavHost(navController = navController, startDestination = Screen.ListFoodScreen.route ) {
         composable(Screen.ListFoodScreen.route) {
@@ -35,7 +33,8 @@ fun ApplicationNavHost(
             AddFoodFragment(
                 navController = navController,
                 addFoodViewModel = addFoodViewModel,
-                randomFoodIndex = randIndex!!.toInt()
+                randomFoodIndex = randIndex!!.toInt(),
+                alertViewModel = alertViewModel
             )
         }
 
@@ -48,6 +47,14 @@ fun ApplicationNavHost(
 
         composable(Screen.ShowAvatarCarouselScreen.route) {
             ShowAvatarFragment(mainViewModel = viewModel, navController = navController)
+        }
+
+        composable(Screen.SettingScreen.route) {
+            SettingFragment(
+                navController,
+                addFoodViewModel,
+                settingViewModel = settingViewModel
+            )
         }
     }
 }

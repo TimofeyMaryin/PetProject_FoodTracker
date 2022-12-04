@@ -40,7 +40,7 @@ fun CountCaloric(
     Column(
         modifier = Modifier
             .fillMaxWidth(.95f)
-            .fillMaxHeight(.4f)
+            .fillMaxHeight(.34f)
             .clip(RoundedCornerShape(15.dp))
             .then(modifier)
     ) {

@@ -76,6 +76,7 @@ fun ShowAvatarFragment(
             flingBehavior = flingBehavior
         ) {
             items(mainViewModel.getAllAvatar().size) {
+                val lastIndex = mainViewModel.getAllAvatar().size-1
                 Box(
                    modifier = Modifier
                        .height(400.dp)
@@ -85,12 +86,13 @@ fun ShowAvatarFragment(
                     contentAlignment = Alignment.Center
                 ) {
                     AsyncImage(
-                        model = mainViewModel.getAllAvatar()[it].url,
+                        model = mainViewModel.getAllAvatar()[lastIndex-it].url,
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
                 }
+
             }
         }
     }

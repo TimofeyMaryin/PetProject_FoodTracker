@@ -30,6 +30,7 @@ class MainViewModel(
     override suspend fun deleteFood(food: FoodEntity) = foodDao.deleteFood(food)
     fun getAllAvatar(): MutableList<AvatarEntity> = avatarDao.getAllAvatar()
 
+
     fun calculateCaloric(data: String, typeIndex: Int): Int {
         val res by mutableStateOf(0)
         return when (typeIndex) {

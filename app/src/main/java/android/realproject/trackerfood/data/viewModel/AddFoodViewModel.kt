@@ -11,6 +11,8 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class AddFoodViewModel(
@@ -19,27 +21,33 @@ class AddFoodViewModel(
 
     var calories by mutableStateOf("")
         private set
-    private var resCal by mutableStateOf(0)
+    private var resCal by mutableStateOf(0f)
     var foodName by mutableStateOf("")
     var weight by mutableStateOf("")
     fun setCountCalorieValue(value: String, index: Int) = run {
+
         when (index) {
-            0 -> calories = value
+            0 -> if (validateEnterValue(value)) calories = value
             1 -> foodName = value
-            2 -> weight = value
+            2 ->  {
+                if (validateEnterValue(value)) weight = value
+            }
         }
     }
+    private fun validateEnterValue(value: String): Boolean = value.isDigitsOnly()
 
     fun calculateCal(): String {
-
+        var res = 0.0
         if (
             weight.isNotEmpty() && calories.isNotEmpty() &&
             weight.isDigitsOnly() && calories.isDigitsOnly()
         ) {
-            resCal = calories.toInt() * (weight.toInt() / 100)
-            return (calories.toInt() * (weight.toInt() / 100)).toString()
+            resCal = calories.toFloat() * (weight.toFloat() / 100)
+            res = calories.toDouble() * (weight.toDouble() / 100)
         }
-        return ""
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.CEILING
+        return df.format(res).toString()
     }
 
     var isOpenAlert by mutableStateOf(false)
@@ -89,12 +97,6 @@ class AddFoodViewModel(
     fun generateRandomEmoji() {
         val randomNum = (0..listOfEmoji.size).random()
         emojiToFood = listOfEmoji[randomNum]
-
-        Log.e("generateRandomEmoji", "-------------------------", )
-        Log.e("generateRandomEmoji", "emogiToFood: $emojiToFood", )
-        Log.e("generateRandomEmoji", "randomNum: $randomNum", )
-        Log.e("generateRandomEmoji", "size: ${listOfEmoji.size}", )
-        Log.e("generateRandomEmoji", "-------------------------", )
     }
     fun generateRandomImage() {
         val bgImage = listOf(
@@ -114,7 +116,7 @@ class AddFoodViewModel(
             viewModel.insertFood(
                 FoodEntity(
                     foodName = foodName,
-                    calories = resCal,
+                    calories = resCal.toInt(),
                     data = Date.getDayFood(Date.getCurrentDate()),
                     emogi = emojiToFood,
                     time = Date.getHourMin(Date.getCurrentDate())
@@ -127,8 +129,10 @@ class AddFoodViewModel(
         weight = ""
     }
 
+
+    fun validateCreateFoodElement(): Boolean = foodName.isNotEmpty() && weight.isNotEmpty() && calories.isNotEmpty()
+
 }
 
-// Date.getCurrentDate()
 
 

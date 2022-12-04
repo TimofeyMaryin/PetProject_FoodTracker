@@ -1,10 +1,12 @@
 package android.realproject.trackerfood.ui.fragments
 
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
+import android.realproject.trackerfood.data.viewModel.AlertViewModel
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.model.date.Date
 import android.realproject.trackerfood.ui.elements.AddFoodEnterValue
 import android.realproject.trackerfood.ui.elements.AppAlertDialog
+import android.realproject.trackerfood.ui.elements.AppBottomBarAddFoodElement
 import android.realproject.trackerfood.ui.elements.FAB
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -32,12 +34,13 @@ fun AddFoodFragment(
     navController: NavController,
     addFoodViewModel: AddFoodViewModel,
     randomFoodIndex: Int,
+    alertViewModel: AlertViewModel
 ) {
     AppAlertDialog(addFoodViewModel = addFoodViewModel)
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (profile, fabContainer, addFoodElement, bg) = createRefs()
+        val (addFoodElement, bg, bottomBar) = createRefs()
         ContainerBg(
             modifier = Modifier.constrainAs(bg) {
                 top.linkTo(parent.top)
@@ -48,68 +51,29 @@ fun AddFoodFragment(
             addFoodViewModel = addFoodViewModel,
         )
 
-        AddFoodEnterValue(addFoodViewModel = addFoodViewModel, modifier = Modifier.constrainAs(addFoodElement){
-            bottom.linkTo(parent.bottom)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        }, randomFoodIndex = randomFoodIndex)
+        AddFoodEnterValue(
+            addFoodViewModel = addFoodViewModel,
+            modifier = Modifier.constrainAs(addFoodElement) {
+                bottom.linkTo(parent.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            },
+            randomFoodIndex = randomFoodIndex,
+            alertViewModel = alertViewModel
+        )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .constrainAs(fabContainer) {
-                    bottom.linkTo(parent.bottom, margin = 30.dp)
-                },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            /** FAB BACK **/
-            Container {
-                FAB(
-                    modifier = Modifier,
-                    onClickAction = { navController.popBackStack() },
-                    icon = Icons.Default.ArrowBack,
-                    bgColor = Color.Red
-                )
+        AppBottomBarAddFoodElement(
+            navController = navController,
+            addFoodViewModel = addFoodViewModel,
+            modifier = Modifier.constrainAs(bottomBar) {
+                bottom.linkTo(parent.bottom)
             }
-
-            /** FAB DONE */
-            Container {
-                FAB(
-                    modifier = Modifier,
-                    onClickAction = {
-
-                        addFoodViewModel.createFoodElement()
-                        navController.popBackStack()
-
-                        Log.e("AddFoodFragment", "currentDate: ${Date.getCurrentDate()}", )
-                        Log.e("AddFoodFragment", "dayFood: ${Date.getDayFood(Date.getCurrentDate())}", )
-                    },
-                    icon = Icons.Default.Done,
-                    bgColor = Color.Green
-                )
-            }
-
-        }
-
+        )
 
     }
 
 }
 
-
-@Composable
-private fun Container(
-    content: @Composable () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .padding(horizontal = 20.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        content()
-    }
-}
 
 @Composable
 private fun ContainerBg(
@@ -137,7 +101,7 @@ private fun ContainerBg(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    color = Color.Black.copy(.9f)
+                    color = Color.Black.copy(.7f)
                 )
         )
     }

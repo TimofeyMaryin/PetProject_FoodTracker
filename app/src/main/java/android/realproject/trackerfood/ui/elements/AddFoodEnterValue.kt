@@ -1,6 +1,10 @@
 package android.realproject.trackerfood.ui.elements
 
+import android.realproject.trackerfood.R
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
+import android.realproject.trackerfood.data.viewModel.AlertViewModel
+import android.realproject.trackerfood.ui.elements.alert.AlertContainer
+import android.realproject.trackerfood.ui.elements.alert.HintCaloriesAlert
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,19 +22,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import java.util.Random
-import kotlin.random.Random.Default.nextInt
 
 @Composable
 fun AddFoodEnterValue(
     addFoodViewModel: AddFoodViewModel,
     modifier: Modifier,
-    randomFoodIndex: Int
+    randomFoodIndex: Int,
+    alertViewModel: AlertViewModel
 ) {
 
     Box(
@@ -51,21 +55,35 @@ fun AddFoodEnterValue(
                 value = addFoodViewModel.foodName,
                 onChangeValue = { addFoodViewModel.setCountCalorieValue(it, 1) },
                 placeholder = addFoodViewModel.listOfProductName[randomFoodIndex],
-                countCal = addFoodViewModel.calculateCal(),
-                selectCalInfo = true,
-                keyboardType = KeyboardType.Text
+                isTrailingIcon = true,
+                keyboardType = KeyboardType.Text,
+                content = {
+                    Text(text = "${addFoodViewModel.calculateCal()} cal")
+                }
             )
             AppTextField(
                 value = addFoodViewModel.calories,
                 onChangeValue = { addFoodViewModel.setCountCalorieValue(it, 0) },
                 placeholder = "Укажите кол-во каллорий за 100 грамм",
-                countCal = addFoodViewModel.calories
+                isTrailingIcon = true,
+                content = {
+                    IconButton(onClick = { 
+                        alertViewModel.changeState(1)
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_quistion),
+                            contentDescription = null,
+                            tint = Color.White
+                        )
+                    }
+                }
+
             )
             AppTextField(
                 value = addFoodViewModel.weight,
                 onChangeValue = { addFoodViewModel.setCountCalorieValue(it, 2) },
                 placeholder = "Вес продукта",
-                countCal = addFoodViewModel.calculateCal()
+
             )
 
             Row(
@@ -78,20 +96,12 @@ fun AddFoodEnterValue(
                 Box(
                     modifier = Modifier
                         .size(50.dp)
-                        .clip(CircleShape)
-                        .background(
-                            brush = Brush.radialGradient(
-                                listOf(
-                                    Color(0xFF0D324D),
-                                    Color(0xFF7F5A83)
-                                )
-                            )
-                        ),
+                        .clip(CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = addFoodViewModel.emojiToFood,
-                        style = MaterialTheme.typography.h6,
+                        style = MaterialTheme.typography.h5,
                         textAlign = TextAlign.Center
                     )
                 }
@@ -100,11 +110,21 @@ fun AddFoodEnterValue(
                     style = MaterialTheme.typography.subtitle2,
                     modifier = Modifier
                         .padding(horizontal = 15.dp),
-                    color = Color.Blue
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
     }
+    AlertContainer(
+        contentAlert = {
+            HintCaloriesAlert(alertViewModel = alertViewModel, addFoodViewModel)
+        },
+        openDialog = alertViewModel.openActionHintCalories,
+        onDismissRequest = { alertViewModel.changeState(1) }
+    )
+
+
 }
 
 
@@ -113,8 +133,8 @@ private fun AppTextField(
     value: String,
     onChangeValue: (String) -> Unit,
     placeholder: String,
-    countCal: String,
-    selectCalInfo: Boolean = false,
+    isTrailingIcon: Boolean = false,
+    content: @Composable () -> Unit = {},
     keyboardType: KeyboardType = KeyboardType.Number
 ) {
     Column(
@@ -136,8 +156,8 @@ private fun AppTextField(
             ),
             placeholder = { Text(text = placeholder, maxLines = 1, overflow = TextOverflow.Ellipsis) },
             trailingIcon = {
-                if (selectCalInfo) {
-                    Text(text = "$countCal cal")
+                if (isTrailingIcon) {
+                    content()
                 }
             },
             leadingIcon = {
