@@ -3,6 +3,7 @@ package android.realproject.trackerfood.ui.elements
 import android.realproject.trackerfood.data.db.avatar_db.AvatarEntity
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.data.viewModel.SelectImageViewModel
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImage
@@ -33,8 +35,11 @@ fun TopBarPreviewAvatar(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .fillMaxHeight(.2f)
+            .background(Color.Black.copy(.4f))
             .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -75,7 +80,7 @@ fun TopBarPreviewAvatar(
             model = viewModel.selectedImage,
             contentDescription = null,
             modifier = Modifier
-                .size(120.dp)
+                .size(100.dp)
                 .clip(CircleShape),
             contentScale = ContentScale.Crop
         )

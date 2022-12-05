@@ -145,6 +145,7 @@ private fun AppTextField(
     ) {
         TextField(
             value = value,
+            singleLine = true,
             onValueChange = { onChangeValue(it) },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Color.Gray,

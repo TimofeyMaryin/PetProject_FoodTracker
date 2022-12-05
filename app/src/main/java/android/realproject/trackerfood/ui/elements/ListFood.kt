@@ -4,7 +4,9 @@ import android.realproject.trackerfood.data.db.FoodEntity
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.model.date.Date
 import android.realproject.trackerfood.utils.ApplicationSettings
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,6 +30,7 @@ fun ListFood(
         modifier = Modifier
             .fillMaxWidth(.95f)
             .clip(RoundedCornerShape(ApplicationSettings.borderRadius))
+            .border(BorderStroke(1.dp, Color.White), RoundedCornerShape(ApplicationSettings.borderRadius))
             .background(Color.Black.copy(ApplicationSettings.alphaElement))
             .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally

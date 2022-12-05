@@ -46,7 +46,7 @@ fun SettingFragment(
         })
 
         TopBarSetting(modifier = Modifier.constrainAs(topBar) {
-            top.linkTo(parent.top, margin = 20.dp)
+            top.linkTo(parent.top)
             start.linkTo(parent.start, margin = 20.dp)
         }, mainViewModel = mainViewModel)
 

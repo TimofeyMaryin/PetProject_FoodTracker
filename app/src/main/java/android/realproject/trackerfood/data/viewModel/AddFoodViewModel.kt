@@ -30,9 +30,7 @@ class AddFoodViewModel(
         when (index) {
             0 -> if (validateEnterValue(value)) calories = value
             1 -> foodName = value
-            2 ->  {
-                if (validateEnterValue(value)) weight = value
-            }
+            2 ->  { if (validateEnterValue(value)) weight = value }
         }
     }
     private fun validateEnterValue(value: String): Boolean = value.isDigitsOnly()

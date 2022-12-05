@@ -12,7 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -31,13 +33,31 @@ fun ListFoodElement(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column() {
-                Text(text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].foodName, fontWeight = FontWeight.Bold)
-                Text(text = "${viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].calories} калорий", color = Color.Gray)
+            Column(
+                modifier = Modifier.weight(4f)
+            ) {
+                Text(
+                    text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].foodName,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = "${viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].calories} калорий",
+                    color = Color.Gray
+                )
             }
 
-            Text(text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].time, style = MaterialTheme.typography.button)
-            Text(text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].emogi, style = MaterialTheme.typography.h3)
+            Text(
+                text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].time,
+                style = MaterialTheme.typography.button,
+                modifier = Modifier.weight(3f)
+            )
+            Text(
+                text = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[index].emogi,
+                style = MaterialTheme.typography.h3,
+                modifier = Modifier.weight(2f)
+            )
 
         }
     }

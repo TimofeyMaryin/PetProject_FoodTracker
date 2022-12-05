@@ -30,7 +30,7 @@ fun SelectAvatarFragment(
 
         TopBarPreviewAvatar(
             modifier = Modifier.constrainAs(topBar) {
-                top.linkTo(parent.top, margin = 10.dp)
+                top.linkTo(parent.top)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             },

@@ -1,6 +1,7 @@
 package android.realproject.trackerfood.ui.elements
 
 import android.realproject.trackerfood.ui.theme.GreenApp
+import android.realproject.trackerfood.utils.ApplicationSettings
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -21,8 +22,8 @@ fun BackgroundIllustration(
     Canvas(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 16.dp))
-            .fillMaxHeight(.3f)
+            .clip(RoundedCornerShape(ApplicationSettings.borderRadius))
+            .fillMaxHeight(.2f)
             .background(GreenApp)
             .then(modifier),
     ) {

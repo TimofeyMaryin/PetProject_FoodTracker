@@ -1,6 +1,7 @@
 package android.realproject.trackerfood.ui.elements.alert
 
 import android.realproject.trackerfood.utils.ApplicationSettings
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,7 +23,7 @@ fun SettingAlert() {
     df.roundingMode = RoundingMode.CEILING
 
     Column(
-        modifier = Modifier.fillMaxWidth().alpha(ApplicationSettings.alphaElement),
+        modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start
     ) {
         Text(

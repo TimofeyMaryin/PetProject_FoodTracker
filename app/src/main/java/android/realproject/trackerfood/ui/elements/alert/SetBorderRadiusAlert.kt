@@ -27,7 +27,7 @@ fun SetBorderRadiusAlert(){
     df.roundingMode = RoundingMode.CEILING
 
     Column(
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape( ApplicationSettings.borderRadius)),
+        modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start
     ) {
         Text(

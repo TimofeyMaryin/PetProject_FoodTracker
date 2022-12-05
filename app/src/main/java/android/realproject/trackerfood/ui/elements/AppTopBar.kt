@@ -1,5 +1,6 @@
 package android.realproject.trackerfood.ui.elements
 
+import android.graphics.ColorSpace.Rgb.TransferParameters
 import android.realproject.trackerfood.R
 import android.realproject.trackerfood.data.viewModel.AlertViewModel
 import android.realproject.trackerfood.data.viewModel.MainViewModel
@@ -8,9 +9,7 @@ import android.realproject.trackerfood.ui.elements.alert.ActionForAvatarsAlert
 import android.realproject.trackerfood.ui.elements.alert.AlertContainer
 import android.realproject.trackerfood.utils.ApplicationSettings
 import android.util.Log
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -48,7 +48,19 @@ fun AppTopBar(
                 )
             )
             .fillMaxWidth()
-            .defaultMinSize(minHeight = 130.dp)
+            .border(
+                BorderStroke(
+                    1.dp,
+                    brush = Brush.verticalGradient(
+                        0.1f to Color.Transparent,
+                        .3f to Color.Transparent,
+                        .63f to Color.White,
+                        1f to Color.White
+                    )
+                ),
+                RoundedCornerShape(ApplicationSettings.borderRadius)
+            )
+            .fillMaxHeight(.2f)
             .background(Color.Black.copy(ApplicationSettings.alphaElement))
             .then(modifier),
         verticalAlignment = Alignment.CenterVertically,

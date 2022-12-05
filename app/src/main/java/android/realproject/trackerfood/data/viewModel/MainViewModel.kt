@@ -9,6 +9,7 @@ import android.realproject.trackerfood.data.db.FoodEntity
 import android.realproject.trackerfood.data.db.avatar_db.AvatarDaoImpl
 import android.realproject.trackerfood.data.db.avatar_db.AvatarEntity
 import android.realproject.trackerfood.model.AvatarModel
+import android.realproject.trackerfood.model.HintCaloricModel
 import android.realproject.trackerfood.model.SortCalByDayCount
 import android.realproject.trackerfood.model.date.Date
 import androidx.compose.runtime.getValue
@@ -35,13 +36,23 @@ class MainViewModel(
         val res by mutableStateOf(0)
         return when (typeIndex) {
             0 -> { cycleCalcData(data = data, res) }
-            1 -> { 2 }
-            2 -> { 3}
-            3 -> { 4 }
+            1 -> { 0 }
+            2 -> { 0}
+            3 -> { 0 }
             else  -> { -1 }
         }
 
     }
+    fun hintCaloricElement(index: Int): HintCaloricModel {
+        return when(index) {
+            0 -> { HintCaloricModel("За день") {} }
+            1 -> { HintCaloricModel("За неделю") {} }
+            2 -> { HintCaloricModel("За месяц") {} }
+            3 -> { HintCaloricModel("За год") {} }
+            else -> { HintCaloricModel("Пошел нахуй") {} }
+        }
+    }
+
     private fun cycleCalcData(data: String, res: Int): Int {
         var _res by mutableStateOf(res)
         for (i in 0 until getFoodByData(data = data).size) {
@@ -104,3 +115,4 @@ class MainViewModel(
         }
     }
 }
+
