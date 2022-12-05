@@ -1,10 +1,7 @@
 package android.realproject.trackerfood.ui.fragments
 
 import android.realproject.trackerfood.data.viewModel.SelectImageViewModel
-import android.realproject.trackerfood.ui.elements.AppTopBar
-import android.realproject.trackerfood.ui.elements.AvatarGridList
-import android.realproject.trackerfood.ui.elements.FAB
-import android.realproject.trackerfood.ui.elements.TopBarPreviewAvatar
+import android.realproject.trackerfood.ui.elements.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
@@ -22,7 +19,14 @@ fun SelectAvatarFragment(
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (confirmAvatar, avatarList, topBar) = createRefs()
+        val (bgInfo, avatarList, topBar) = createRefs()
+
+        SetBg(modifier = Modifier.constrainAs(bgInfo) {
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        })
 
         TopBarPreviewAvatar(
             modifier = Modifier.constrainAs(topBar) {

@@ -6,12 +6,14 @@ import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.model.navigation.Screen
 import android.realproject.trackerfood.ui.elements.alert.ActionForAvatarsAlert
 import android.realproject.trackerfood.ui.elements.alert.AlertContainer
+import android.realproject.trackerfood.utils.ApplicationSettings
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -39,8 +41,15 @@ fun AppTopBar(
 
     Row(
         modifier = Modifier
-            .fillMaxWidth(.95f)
+            .clip(
+                RoundedCornerShape(
+                    bottomStart = ApplicationSettings.borderRadius,
+                    bottomEnd = ApplicationSettings.borderRadius
+                )
+            )
+            .fillMaxWidth()
             .defaultMinSize(minHeight = 130.dp)
+            .background(Color.Black.copy(ApplicationSettings.alphaElement))
             .then(modifier),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -56,7 +65,7 @@ fun AppTopBar(
         }
         var randomInd by remember { mutableStateOf(0) }
         Column(
-            modifier = Modifier.weight(2f)
+            modifier = Modifier.weight(2f).padding(start = 20.dp)
         ) {
             Text(
                 text = categoryText,
@@ -80,7 +89,7 @@ fun AppTopBar(
             onClick = {
                 alertViewModel.changeState(0)
             },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f).padding(end = 20.dp)
         ) {
             val defAvatar = "https://i.pinimg.com/564x/28/86/8c/28868c4b45558019fa6e3bafd0fc4c1f.jpg"
             Box(

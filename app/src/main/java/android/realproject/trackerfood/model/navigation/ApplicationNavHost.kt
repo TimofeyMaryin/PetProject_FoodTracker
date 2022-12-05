@@ -4,7 +4,10 @@ import android.os.Build
 import android.realproject.trackerfood.data.viewModel.*
 import android.realproject.trackerfood.ui.fragments.*
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,7 +23,10 @@ fun ApplicationNavHost(
     settingViewModel: SettingViewModel,
     selectContentForBgViewModel: SelectContentForBgViewModel
 ) {
-    NavHost(navController = navController, startDestination = Screen.ListFoodScreen.route ) {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.ListFoodScreen.route
+    ) {
         composable(Screen.ListFoodScreen.route) {
             ListFoodFragment(
                 viewModel = viewModel,

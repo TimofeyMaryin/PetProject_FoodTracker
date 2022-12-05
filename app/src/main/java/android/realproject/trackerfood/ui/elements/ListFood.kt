@@ -3,6 +3,7 @@ package android.realproject.trackerfood.ui.elements
 import android.realproject.trackerfood.data.db.FoodEntity
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.model.date.Date
+import android.realproject.trackerfood.utils.ApplicationSettings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,8 +27,8 @@ fun ListFood(
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth(.95f)
-            .clip(RoundedCornerShape(15.dp))
-            .background(Color.Black)
+            .clip(RoundedCornerShape(ApplicationSettings.borderRadius))
+            .background(Color.Black.copy(ApplicationSettings.alphaElement))
             .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

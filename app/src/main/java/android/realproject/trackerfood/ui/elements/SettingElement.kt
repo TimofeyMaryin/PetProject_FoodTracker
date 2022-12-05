@@ -3,7 +3,10 @@ package android.realproject.trackerfood.ui.elements
 import android.realproject.trackerfood.R
 import android.realproject.trackerfood.data.viewModel.SettingViewModel
 import android.realproject.trackerfood.ui.elements.alert.AlertContainer
+import android.realproject.trackerfood.ui.elements.alert.SetBlackOut
+import android.realproject.trackerfood.ui.elements.alert.SetBorderRadiusAlert
 import android.realproject.trackerfood.ui.elements.alert.SettingAlert
+import android.realproject.trackerfood.utils.ApplicationSettings
 import android.text.BoringLayout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,10 +38,15 @@ fun SettingElement(
 
     LazyColumn(
         modifier = Modifier
-            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+            .clip(
+                RoundedCornerShape(
+                    topStart = ApplicationSettings.borderRadius,
+                    topEnd = ApplicationSettings.borderRadius
+                )
+            )
             .fillMaxWidth(.95f)
             .fillMaxHeight(.75f)
-            .background(Color.Black)
+            .background(Color.Black.copy(ApplicationSettings.alphaElement))
             .then(modifier),
         horizontalAlignment = Alignment.Start
     ) {
@@ -59,7 +67,18 @@ fun SettingElement(
     AlertContainer(
         contentAlert = { SettingAlert() },
         openDialog = settingViewModel.sliderAlertDialogState,
-        onDismissRequest = { settingViewModel.changeState() }
+        onDismissRequest = { settingViewModel.changeState(0) }
+    )
+
+    AlertContainer(
+        contentAlert = { SetBorderRadiusAlert() },
+        openDialog = settingViewModel.setBorderRadiusAlert,
+        onDismissRequest = { settingViewModel.changeState(1) }
+    )
+    AlertContainer(
+        contentAlert = { SetBlackOut() },
+        openDialog = settingViewModel.setBlackoutToBG,
+        onDismissRequest = { settingViewModel.changeState(2) }
     )
 }
 

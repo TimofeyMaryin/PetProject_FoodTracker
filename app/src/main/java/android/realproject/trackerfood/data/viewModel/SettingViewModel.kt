@@ -14,9 +14,9 @@ class SettingViewModel(
     val listOfSettingsItemApplication = mutableListOf(
         SettingElementModel("Поменять фон", isCheckBox = false) { changeBg() },
         SettingElementModel("Установить время отправки уведомления", isCheckBox = false) {},
-
-        // AlertImage with slider
-        SettingElementModel("Установить прозрачность", isCheckBox = false) { changeState() }
+        SettingElementModel("Установить прозрачность", isCheckBox = false) { changeState(0) },
+        SettingElementModel("Установить закругление сторон", isCheckBox = false) { changeState(1) },
+        SettingElementModel("Затемнить фон", isCheckBox = false) {changeState(2)}
     )
     val listOfSettingsItemOther = mutableListOf(
         SettingElementModel("Авторы иллюстраций", isCheckBox = false) {},
@@ -27,7 +27,15 @@ class SettingViewModel(
     }
 
     var sliderAlertDialogState by mutableStateOf(false)
-    fun changeState() = run { sliderAlertDialogState = !sliderAlertDialogState }
+    var setBorderRadiusAlert by mutableStateOf(false)
+    var setBlackoutToBG by mutableStateOf(false)
+    fun changeState(index: Int) = run {
+        when (index){
+            0 -> sliderAlertDialogState = !sliderAlertDialogState
+            1 -> setBorderRadiusAlert = !setBorderRadiusAlert
+            2 -> setBlackoutToBG = !setBlackoutToBG
+        }
+    }
 
 
 }

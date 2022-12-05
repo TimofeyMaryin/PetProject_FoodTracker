@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -38,7 +39,8 @@ fun TopBarSetting(
 
         AsyncImage(
             model = mainViewModel.getAllAvatar().last().url, contentDescription = null,
-            modifier = Modifier.size(100.dp).clip(CircleShape)
+            modifier = Modifier.size(100.dp).clip(CircleShape),
+            contentScale = ContentScale.Crop
         )
     }
 }

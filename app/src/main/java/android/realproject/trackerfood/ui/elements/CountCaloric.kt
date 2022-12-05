@@ -4,6 +4,7 @@ import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.model.date.Date
 import android.realproject.trackerfood.ui.theme.GreenApp
+import android.realproject.trackerfood.utils.ApplicationSettings
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -41,11 +42,14 @@ fun CountCaloric(
         modifier = Modifier
             .fillMaxWidth(.95f)
             .fillMaxHeight(.34f)
-            .clip(RoundedCornerShape(15.dp))
+            .clip(RoundedCornerShape(ApplicationSettings.borderRadius))
             .then(modifier)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().background(Color.Black).weight(2f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Black.copy(ApplicationSettings.alphaElement))
+                .weight(2f),
             verticalAlignment = Alignment.CenterVertically
         ) {
             for (i in 0 until viewModel.sortCalByDayCount.size) {
@@ -63,7 +67,7 @@ fun CountCaloric(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(9f)
-                .background(Color.Black),
+                .background(Color.Black.copy(ApplicationSettings.alphaElement)),
             verticalAlignment = Alignment.CenterVertically,
             state = state,
             flingBehavior = flingBehavior
@@ -74,7 +78,7 @@ fun CountCaloric(
                 Box(
                     modifier = Modifier
                         .fillParentMaxSize()
-                        .background(GreenApp),
+                        .background(GreenApp.copy(ApplicationSettings.alphaElement)),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(

@@ -2,6 +2,7 @@ package android.realproject.trackerfood.ui.fragments
 
 import android.realproject.trackerfood.data.viewModel.SelectContentForBgViewModel
 import android.realproject.trackerfood.ui.elements.TopBarSelectFragment
+import android.realproject.trackerfood.utils.ApplicationSettings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -51,9 +53,12 @@ private fun SelectColorFragment(
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(12.dp))
-                            .background(viewModel.listColorBg[it])
+                            .background(colorResource(id = viewModel.listColorBg[it]))
                             .size(100.dp)
-                            .clickable { viewModel.selectColorBg(viewModel.listColorBg[it]) }
+                            .clickable {
+                                ApplicationSettings.bgColor = viewModel.listColorBg[it]
+                                viewModel.selectImageBg(viewModel.listImageUrl[it])
+                            }
                     )
 
                 }
@@ -90,7 +95,10 @@ private fun SelectImageFragment(
                             .clip(RoundedCornerShape(20.dp))
                             .width(100.dp)
                             .height(160.dp)
-                            .clickable { viewModel.selectImageBg(viewModel.listImageUrl[it]) }
+                            .clickable {
+                                ApplicationSettings.bgColor = viewModel.listImageUrl[it]
+                                viewModel.selectImageBg(viewModel.listImageUrl[it])
+                            }
                     )
 
                 }

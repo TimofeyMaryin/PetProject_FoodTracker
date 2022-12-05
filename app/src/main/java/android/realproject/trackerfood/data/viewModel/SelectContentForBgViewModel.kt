@@ -1,6 +1,8 @@
 package android.realproject.trackerfood.data.viewModel
 
 import android.content.Context
+import android.realproject.trackerfood.R
+import android.realproject.trackerfood.model.navigation.Screen
 import android.widget.Toast
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
@@ -13,20 +15,20 @@ class SelectContentForBgViewModel(
 ): ViewModel() {
 
     val listColorBg = listOf(
-        Color(0xFF485461),
-        Color(0xFF233329),
-        Color (0xFF414141),
-        Color(0xFF5B6467),
-        Color(0xFF8B939A),
-        Color(0xFFFFA69E),
-        Color(0xFF5D4954),
-        Color(0xFF166D3B),
-        Color(0xFF04619F),
-        Color(0xFF923CB5),
-        Color(0xFF2C3E50),
-        Color(0xFFA55C1B),
-        Color(0xFFB82E1F),
-        Color(0xFFE84393)
+        R.color.bg1,
+        R.color.bg2,
+        R.color.bg3,
+        R.color.bg4,
+        R.color.bg5,
+        R.color.bg6,
+        R.color.bg7,
+        R.color.bg8,
+        R.color.bg9,
+        R.color.bg10,
+        R.color.bg11,
+        R.color.bg12,
+        R.color.bg13,
+        R.color.bg14,
     )
 
 
@@ -54,7 +56,7 @@ class SelectContentForBgViewModel(
     }
 
     fun selectImageBg(url: String) {
-        navController.popBackStack()
+        navController.navigate(Screen.SettingScreen.route)
         Toast.makeText(context, "Image change", Toast.LENGTH_SHORT).show()
     }
 

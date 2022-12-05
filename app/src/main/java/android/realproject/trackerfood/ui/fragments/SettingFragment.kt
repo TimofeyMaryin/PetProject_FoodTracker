@@ -3,10 +3,7 @@ package android.realproject.trackerfood.ui.fragments
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.data.viewModel.SettingViewModel
-import android.realproject.trackerfood.ui.elements.ApplicationBottomBar
-import android.realproject.trackerfood.ui.elements.BackgroundIllustration
-import android.realproject.trackerfood.ui.elements.SettingElement
-import android.realproject.trackerfood.ui.elements.TopBarSetting
+import android.realproject.trackerfood.ui.elements.*
 import android.realproject.trackerfood.ui.elements.alert.AlertContainer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +30,14 @@ fun SettingFragment(
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (bottomBar, topBg, topBar, settingsItem) = createRefs()
+        val (bottomBar, topBg, topBar, settingsItem, bgInfo) = createRefs()
+
+        SetBg(modifier = Modifier.constrainAs(bgInfo) {
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        })
 
         BackgroundIllustration(modifier = Modifier.constrainAs(topBg) {
             top.linkTo(parent.top, margin = (-10).dp)
