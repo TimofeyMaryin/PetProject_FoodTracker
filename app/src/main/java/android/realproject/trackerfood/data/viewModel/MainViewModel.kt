@@ -1,29 +1,31 @@
 package android.realproject.trackerfood.data.viewModel
 
 import android.app.Application
-import android.realproject.trackerfood.R
 import android.realproject.trackerfood.data.db.ApplicationDataBase
-import android.realproject.trackerfood.data.db.FoodDao
 import android.realproject.trackerfood.data.db.FoodDaoImpl
 import android.realproject.trackerfood.data.db.FoodEntity
 import android.realproject.trackerfood.data.db.avatar_db.AvatarDaoImpl
 import android.realproject.trackerfood.data.db.avatar_db.AvatarEntity
-import android.realproject.trackerfood.model.AvatarModel
+import android.realproject.trackerfood.data.db.food_hint_db.FoodHintDaoImpl
+import android.realproject.trackerfood.data.db.food_hint_db.FoodHintEntity
 import android.realproject.trackerfood.model.HintCaloricModel
 import android.realproject.trackerfood.model.SortCalByDayCount
 import android.realproject.trackerfood.model.date.Date
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import kotlin.random.Random
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MainViewModel(
     application: Application
-): ViewModel(), FoodDaoImpl, AvatarDaoImpl {
+): ViewModel(), FoodDaoImpl, AvatarDaoImpl, FoodHintDaoImpl {
 
     private val foodDao = ApplicationDataBase.getInstance(application = application).foodDao()
     private val avatarDao = ApplicationDataBase.getInstance(application).avatarDao()
+    private val foodHintDao = ApplicationDataBase.getInstance(application = application).foodHintDao()
 
     override suspend fun insertFood(food: FoodEntity) = foodDao.insertFood(food)
     override fun getFoodByData(data: String): MutableList<FoodEntity> = foodDao.getFoodByData(data)
@@ -31,36 +33,42 @@ class MainViewModel(
     override suspend fun deleteFood(food: FoodEntity) = foodDao.deleteFood(food)
     fun getAllAvatar(): MutableList<AvatarEntity> = avatarDao.getAllAvatar()
 
+    override fun getAllHint(): MutableList<FoodHintEntity> = foodHintDao.getAllHint()
+    override fun insertProductHint(foodHintEntity: FoodHintEntity) = foodHintDao.insertProductHint(foodHintEntity)
+    override fun deleteProductHint(foodHintEntity: FoodHintEntity) = foodHintDao.deleteProductHint(foodHintEntity)
 
-    fun calculateCaloric(data: String, typeIndex: Int): Int {
-        val res by mutableStateOf(0)
-        return when (typeIndex) {
-            0 -> { cycleCalcData(data = data, res) }
-            1 -> { 0 }
-            2 -> { 0}
-            3 -> { 0 }
-            else  -> { -1 }
+
+    fun calculateCaloric(data: String): Int = calcCaloricByDay(data = data)
+//    fun hintCaloricElement(index: Int): HintCaloricModel {
+//        return when(index) {
+//            0 -> { HintCaloricModel("За день") {} }
+//            1 -> { HintCaloricModel("За неделю") {} }
+//            2 -> { HintCaloricModel("За месяц") {} }
+//            3 -> { HintCaloricModel("За год") {} }
+//            else -> { HintCaloricModel("Пошел нахуй") {} }
+//        }
+//    }
+
+    var showOverview by mutableStateOf(false)
+    fun overViewCaloricElement(index: Int): HintCaloricModel{
+        return when(index){
+            0 -> HintCaloricModel("Overview by day") {}
+            1 -> HintCaloricModel("Overview by week") {}
+            2 -> HintCaloricModel("Overview by month") {}
+            3 -> HintCaloricModel("Overview by year"){}
+            else -> HintCaloricModel("Нахуй иди") {}
         }
-
-    }
-    fun hintCaloricElement(index: Int): HintCaloricModel {
-        return when(index) {
-            0 -> { HintCaloricModel("За день") {} }
-            1 -> { HintCaloricModel("За неделю") {} }
-            2 -> { HintCaloricModel("За месяц") {} }
-            3 -> { HintCaloricModel("За год") {} }
-            else -> { HintCaloricModel("Пошел нахуй") {} }
-        }
     }
 
-    private fun cycleCalcData(data: String, res: Int): Int {
-        var _res by mutableStateOf(res)
+    private fun calcCaloricByDay(data: String): Int {
+        var res by mutableStateOf(0)
         for (i in 0 until getFoodByData(data = data).size) {
-            _res += getFoodByData(data = data)[i].calories
+            res += getFoodByData(data = data)[i].calories
         }
 
-        return _res
+        return res
     }
+
 
     fun checkAvailabilityAvatar() = getAllAvatar().size == 0
 
@@ -87,32 +95,9 @@ class MainViewModel(
         "Мысли о том, что надо бы сесть на диету, приходят обычно после сытного обеда и исчезают за полчаса до ужина..."
     )
 
+    var indexTouchProductIndex by mutableStateOf(0)
+    fun changeIndexTouchProductIndex(index: Int) = run { indexTouchProductIndex = index }
 
-    val sortCalByDayCount = mutableListOf(
-        mutableStateOf( SortCalByDayCount("День",true) { sortByDayTub(0) }),
-        mutableStateOf( SortCalByDayCount("Неделя",false) { sortByDayTub(1) } ),
-        mutableStateOf( SortCalByDayCount("Месяц",false) { sortByDayTub(2) }),
-        mutableStateOf( SortCalByDayCount("Год",false) { sortByDayTub(3) }),
-    )
 
-    private fun sortByDayTub(index: Int): Int {
-        return when(index) {
-            0 -> { calculateCaloric(Date.getDayFood(Date.getCurrentDate()), index) }
-            1 -> { clickBySortDay(7, 1) }
-            2 -> { clickBySortDay(31, 2) }
-            3 -> { clickBySortDay(361, 3) }
-            else -> { -1 }
-        }
-    }
-    private fun clickBySortDay(date: Int, index: Int): Int {
-        clearSortSelect()
-        sortCalByDayCount[index].value.selected = true
-        return date
-    }
-    private fun clearSortSelect() {
-        for (i in 0 until sortCalByDayCount.size) {
-            sortCalByDayCount[i].value.selected = false
-        }
-    }
 }
 

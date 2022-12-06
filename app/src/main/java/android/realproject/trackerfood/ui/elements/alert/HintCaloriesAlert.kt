@@ -1,34 +1,38 @@
 package android.realproject.trackerfood.ui.elements.alert
 
+import android.realproject.trackerfood.R
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
 import android.realproject.trackerfood.data.viewModel.AlertViewModel
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import android.realproject.trackerfood.data.viewModel.MainViewModel
+import android.realproject.trackerfood.model.navigation.Screen
+import android.widget.Toast
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 fun HintCaloriesAlert(
     alertViewModel: AlertViewModel,
-    addFoodViewModel: AddFoodViewModel
+    addFoodViewModel: AddFoodViewModel,
+    navController: NavController,
+    mainViewModel: MainViewModel
 ){
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
@@ -36,24 +40,24 @@ fun HintCaloriesAlert(
     ) {
         item {
             Text(
-                text = "Небольшой список продуктов с их калорийностью",
+                text = "Твой личный список, пользуйся",
                 style = MaterialTheme.typography.h6,
                 color = Color.White.copy(.8f),
                 textAlign = TextAlign.Center
             )
 
         }
-        items(addFoodViewModel.listOfProductWithCal.size) {
+        items(mainViewModel.getAllHint().size) {
             HintCaloriesElement(
-
                 addFoodViewModel = addFoodViewModel,
+                mainViewModel = mainViewModel,
                 alertViewModel = alertViewModel,
                 index = it
             )
         }
         item {
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate(Screen.AddFoodHintScreen.route) },
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(50.dp)
@@ -70,22 +74,38 @@ fun HintCaloriesAlert(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HintCaloriesElement(
-    addFoodViewModel: AddFoodViewModel,
+    mainViewModel: MainViewModel,
     index: Int,
+    addFoodViewModel: AddFoodViewModel,
     alertViewModel: AlertViewModel
+
 ){
-    val currentFoodInstance = addFoodViewModel.listOfProductWithCal[index]
+    val currentFoodInstance = mainViewModel.getAllHint()[index]
+    val context = LocalContext.current
+    var isDeleteElement by remember {mutableStateOf(false) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp)
-            .clickable {
-                addFoodViewModel.setCountCalorieValue(currentFoodInstance.caloric.toString(), 0)
-                addFoodViewModel.setCountCalorieValue(currentFoodInstance.name, 1)
-                alertViewModel.changeState(1)
-            },
+            .height(60.dp)
+            .combinedClickable(
+                onClick = {
+                    addFoodViewModel.setCountCalorieValue(
+                        currentFoodInstance.countCaloric.toString(),
+                        0
+                    )
+                    addFoodViewModel.setCountCalorieValue(currentFoodInstance.productTitle, 1)
+                    alertViewModel.changeState(1)
+                    if (isDeleteElement) isDeleteElement = false
+                },
+                onLongClick = {
+                    isDeleteElement = !isDeleteElement
+                }
+
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -95,22 +115,37 @@ private fun HintCaloriesElement(
             horizontalArrangement = Arrangement.Start
         ) {
             Icon(
-                painter = painterResource(id = currentFoodInstance.icon),
+                painter = painterResource(id = R.drawable.ic_food),
                 contentDescription = null,
                 modifier = Modifier.padding(end = 5.dp)
             )
             Text(
-                text = currentFoodInstance.name,
+                text = mainViewModel.getAllHint()[index].productTitle,
                 style = MaterialTheme.typography.subtitle2,
                 color = Color.Gray,
             )
 
         }
-        Text(
-            text = "${currentFoodInstance.caloric} \uD83D\uDD25",
-            style = MaterialTheme.typography.h6,
-            color = Color.White,
-            modifier = Modifier.weight(1f)
-        )
+        if(isDeleteElement){
+
+            Box(
+                modifier = Modifier.weight(1f).clickable { mainViewModel.deleteProductHint(mainViewModel.getAllHint()[index]) },
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null,
+                )
+            }
+
+        } else {
+            Text(
+                text = "${mainViewModel.getAllHint()[index].countCaloric} \uD83D\uDD25",
+                style = MaterialTheme.typography.h6,
+                color = Color.White,
+                modifier = Modifier.weight(1f)
+            )
+
+        }
     }
 }

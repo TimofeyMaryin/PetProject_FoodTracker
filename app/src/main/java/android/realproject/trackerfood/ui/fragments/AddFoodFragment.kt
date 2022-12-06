@@ -34,7 +34,8 @@ fun AddFoodFragment(
     navController: NavController,
     addFoodViewModel: AddFoodViewModel,
     randomFoodIndex: Int,
-    alertViewModel: AlertViewModel
+    alertViewModel: AlertViewModel,
+    mainViewModel: MainViewModel
 ) {
     AppAlertDialog(addFoodViewModel = addFoodViewModel)
     ConstraintLayout(
@@ -59,7 +60,9 @@ fun AddFoodFragment(
                 end.linkTo(parent.end)
             },
             randomFoodIndex = randomFoodIndex,
-            alertViewModel = alertViewModel
+            alertViewModel = alertViewModel,
+            navController = navController,
+            mainViewModel = mainViewModel
         )
 
         AppBottomBarAddFoodElement(

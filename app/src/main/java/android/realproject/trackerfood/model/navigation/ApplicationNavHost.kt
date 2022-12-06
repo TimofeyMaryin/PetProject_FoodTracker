@@ -21,7 +21,8 @@ fun ApplicationNavHost(
     selectImageViewModel: SelectImageViewModel,
     alertViewModel: AlertViewModel,
     settingViewModel: SettingViewModel,
-    selectContentForBgViewModel: SelectContentForBgViewModel
+    selectContentForBgViewModel: SelectContentForBgViewModel,
+    addFoodHintViewModel: AddFoodHintViewModel
 ) {
     NavHost(
         navController = navController,
@@ -41,7 +42,8 @@ fun ApplicationNavHost(
                 navController = navController,
                 addFoodViewModel = addFoodViewModel,
                 randomFoodIndex = randIndex!!.toInt(),
-                alertViewModel = alertViewModel
+                alertViewModel = alertViewModel,
+                mainViewModel = viewModel
             )
         }
 
@@ -75,6 +77,15 @@ fun ApplicationNavHost(
                 type = type!!.toInt(),
                 selectContentForBgViewModel,
                 navController = navController
+            )
+        }
+
+        composable(Screen.AddFoodHintScreen.route){
+            AddFoodHintFragment(
+                addFoodViewModel = addFoodViewModel,
+                navController = navController,
+                addFoodHintViewModel = addFoodHintViewModel,
+                mainViewModel = viewModel
             )
         }
     }

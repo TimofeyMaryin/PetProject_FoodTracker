@@ -91,7 +91,7 @@ class AddFoodViewModel(
 
     var emojiToFood by mutableStateOf("")
 
-    var bgColor by mutableStateOf(0)
+    var bgColor by mutableStateOf(R.drawable.bg_add_food3)
 
     fun generateRandomEmoji() {
         val randomNum = (0..listOfEmoji.size).random()

@@ -39,7 +39,7 @@ fun TopBarSetting(
         AsyncImage(
             model = url,
             contentDescription = null,
-            modifier = Modifier.size(100.dp).clip(CircleShape),
+            modifier = Modifier.size(70.dp).clip(CircleShape),
             contentScale = ContentScale.Crop
         )
     }

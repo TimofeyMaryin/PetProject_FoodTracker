@@ -26,20 +26,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
 
 
-const val TABLE_NAME = "Application_settings"
-const val KEY_BG_COLOR = "key_bg_color"
-const val KEY_ALPHA_BLOCK = "key_alpha_block"
-const val KEY_BORDER_RADIUS = "key_border_radius"
-const val KEY_BLACKOUT_BG = "key_blackout"
+
 
 class MainActivity : ComponentActivity() {
-    var sharedPreferences: SharedPreferences? = null
+
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedPreferences = getSharedPreferences(TABLE_NAME, Context.MODE_PRIVATE)
 
         setContent {
             TrackerFoodTheme {
@@ -49,10 +44,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    ApplicationSettings.bgColor = sharedPreferences!!.getInt(KEY_BG_COLOR, R.color.bg1)
-                    ApplicationSettings.alphaElement = sharedPreferences!!.getFloat(KEY_ALPHA_BLOCK, 1f)
-                    ApplicationSettings.borderRadiusFloat = sharedPreferences!!.getFloat(KEY_BORDER_RADIUS, 20f)
-                    ApplicationSettings.blackOutBg = sharedPreferences!!.getFloat(KEY_BLACKOUT_BG, .6f)
+
 
 
 
@@ -97,6 +89,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     )
+                    val addFoodHintViewModel: AddFoodHintViewModel by viewModels()
 
                     ApplicationNavHost(
                         navController = navController,
@@ -105,43 +98,17 @@ class MainActivity : ComponentActivity() {
                         selectImageViewModel = selectImageViewModel,
                         alertViewModel = alertViewModel,
                         settingViewModel = settingViewModel,
-                        selectContentForBgViewModel = selectContentForBgViewModel
+                        selectContentForBgViewModel = selectContentForBgViewModel,
+                        addFoodHintViewModel = addFoodHintViewModel
                     )
+
+
                 }
             }
         }
     }
 
-    private fun saveData(value: Any, index: Int){
-        val edit = sharedPreferences?.edit()
 
-
-        /**
-         *  index:
-         *  0 -> будет сохранять цвет фона (тип Int)
-         *  1 -> будет сохранять непрозрачность для блоков (тип Float)
-         *  2 -> будет сохранять borderRadius для блоков (тип Float)
-         *  3 -> будет сохранять затемнение для фона (тип Float)
-         */
-
-        when(index){
-            0 -> { edit?.putInt(KEY_BG_COLOR, value as Int) }
-            1-> { edit?.putFloat(KEY_ALPHA_BLOCK, value as Float) }
-            2 -> { edit?.putFloat(KEY_BORDER_RADIUS, value as Float) }
-            3 -> { edit?.putFloat(KEY_BLACKOUT_BG, value as Float) }
-        }
-
-        edit?.apply()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        saveData(ApplicationSettings.bgColor, 0)
-        saveData(ApplicationSettings.alphaElement, 1)
-        saveData(ApplicationSettings.borderRadiusFloat, 2)
-        saveData(ApplicationSettings.blackOutBg, 3)
-    }
 
 
 }

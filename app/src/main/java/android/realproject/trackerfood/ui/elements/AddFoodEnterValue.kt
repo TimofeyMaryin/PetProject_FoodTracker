@@ -3,6 +3,7 @@ package android.realproject.trackerfood.ui.elements
 import android.realproject.trackerfood.R
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
 import android.realproject.trackerfood.data.viewModel.AlertViewModel
+import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.ui.elements.alert.AlertContainer
 import android.realproject.trackerfood.ui.elements.alert.HintCaloriesAlert
 import androidx.compose.foundation.BorderStroke
@@ -28,13 +29,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 fun AddFoodEnterValue(
     addFoodViewModel: AddFoodViewModel,
     modifier: Modifier,
     randomFoodIndex: Int,
-    alertViewModel: AlertViewModel
+    alertViewModel: AlertViewModel,
+    navController: NavController,
+    mainViewModel: MainViewModel
 ) {
 
     Box(
@@ -118,7 +122,12 @@ fun AddFoodEnterValue(
     }
     AlertContainer(
         contentAlert = {
-            HintCaloriesAlert(alertViewModel = alertViewModel, addFoodViewModel)
+            HintCaloriesAlert(
+                alertViewModel = alertViewModel,
+                addFoodViewModel = addFoodViewModel,
+                navController = navController,
+                mainViewModel = mainViewModel
+            )
         },
         openDialog = alertViewModel.openActionHintCalories,
         onDismissRequest = { alertViewModel.changeState(1) }

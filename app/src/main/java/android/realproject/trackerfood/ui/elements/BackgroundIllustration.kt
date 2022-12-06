@@ -21,8 +21,8 @@ fun BackgroundIllustration(
 ) {
     Canvas(
         modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(ApplicationSettings.borderRadius))
+            .fillMaxWidth(.95f)
+            .clip(RoundedCornerShape(bottomStart = ApplicationSettings.borderRadius, bottomEnd = ApplicationSettings.borderRadius))
             .fillMaxHeight(.2f)
             .background(GreenApp)
             .then(modifier),

@@ -47,7 +47,7 @@ fun AppTopBar(
                     bottomEnd = ApplicationSettings.borderRadius
                 )
             )
-            .fillMaxWidth()
+            .fillMaxWidth(.95f)
             .border(
                 BorderStroke(
                     1.dp,

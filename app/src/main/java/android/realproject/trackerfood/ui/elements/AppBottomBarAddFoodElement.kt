@@ -18,7 +18,15 @@ import androidx.navigation.NavController
 fun AppBottomBarAddFoodElement(
     navController: NavController,
     addFoodViewModel: AddFoodViewModel,
-    modifier: Modifier
+    modifier: Modifier,
+
+    onClickCancelAction: () -> Unit = { navController.popBackStack() },
+    onClickCreateElement: () -> Unit ={
+        if (addFoodViewModel.validateCreateFoodElement()) {
+            addFoodViewModel.createFoodElement()
+            navController.popBackStack()
+        }
+    }
 ){
     BottomNavigation(
         modifier = Modifier
@@ -33,7 +41,7 @@ fun AppBottomBarAddFoodElement(
             selectedContentColor = Color.White,
             unselectedContentColor = Color.White.copy(0.4f),
             onClick = {
-                navController.popBackStack()
+                onClickCancelAction()
             },
 
         )
@@ -46,10 +54,7 @@ fun AppBottomBarAddFoodElement(
             selectedContentColor = Color.White,
             unselectedContentColor = if (!addFoodViewModel.validateCreateFoodElement()) Color.White.copy(0.4f) else Color.White.copy(.8f),
             onClick = {
-                if (addFoodViewModel.validateCreateFoodElement()) {
-                    addFoodViewModel.createFoodElement()
-                    navController.popBackStack()
-                }
+                onClickCreateElement()
             }
         )
     }
