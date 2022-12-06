@@ -34,6 +34,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @RequiresApi(Build.VERSION_CODES.Q)
@@ -51,16 +52,29 @@ fun ListFoodFragment(
     val sizeIcon = 40.dp
     val padding = 10.dp
     val colorElement = Color.White.copy(.4f)
+    val coroutineScope = rememberCoroutineScope()
+
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         sheetContent = {
-            val currentFoodElement = viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[viewModel.indexTouchProductIndex]
+            val currentFoodElement =
+                if (
+                    viewModel
+                        .getFoodByData(
+                            Date.getDayFood(Date.getCurrentDate())
+                        ).size != 0)
+                    viewModel.getFoodByData(
+                        Date.getDayFood(
+                            Date.getCurrentDate())
+                    )[viewModel.indexTouchProductIndex]
+                else null
+
             ConstraintLayout(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(.6f)
             ) {
-                val (content, upLine) = createRefs()
+                val (content, upLine,delButton) = createRefs()
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
@@ -75,87 +89,119 @@ fun ListFoodFragment(
                             end.linkTo(parent.end)
                         },
                 )
-                
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = padding)
-                        .constrainAs(content) {
-                            top.linkTo(upLine.bottom)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
+                if(currentFoodElement != null){
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = padding)
+                            .constrainAs(content) {
+                                top.linkTo(upLine.bottom)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                            }
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = padding)
+                                .height(50.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+
+                            Text(
+                                text = currentFoodElement.foodName,
+                                fontSize = 26.sp,
+                                color = Color.White
+                            )
                         }
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = padding)
+                                .height(50.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+
+                            ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_scale),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(sizeIcon)
+                                    .padding(end = padding),
+                                tint = colorElement
+                            )
+                            Text(
+                                text = currentFoodElement.calories.toString(),
+                                fontSize = textSizeBottomSheet,
+                                color = colorElement
+                            )
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = padding)
+                                .height(50.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_clock),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(sizeIcon)
+                                    .padding(end = padding),
+                                tint = colorElement
+                            )
+                            Text(
+                                text = currentFoodElement.time,
+                                fontSize = textSizeBottomSheet,
+                                color = colorElement
+                            )
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = padding)
+                                .height(50.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_icon),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(sizeIcon)
+                                    .padding(end = padding),
+                                tint = colorElement
+                            )
+                            Text(text = currentFoodElement.emogi, fontSize = textSizeBottomSheet, color = colorElement)
+                        }
+                    }
+
+                }
+                Button(
+                    onClick = {
+                        coroutineScope.launch {
+                            viewModel.deleteFood(currentFoodElement!!)
+                            bottomSheetScaffoldState.bottomSheetState.collapse()
+                        }
+
+                    },
+                    modifier = Modifier
+                        .background(Color(0xFF9E2927))
+                        .fillMaxWidth()
+                        .constrainAs(delButton) {
+                            bottom.linkTo(parent.bottom)
+                        },
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(0xFF9E2927)
+                    )
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = padding)
-                            .height(50.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-
-                        Text(
-                            text = currentFoodElement.foodName,
-                            fontSize = 26.sp,
-                            color = Color.White
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = padding)
-                            .height(50.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_scale),
-                            contentDescription = null,
-                            modifier = Modifier.size(sizeIcon).padding(end = padding),
-                            tint = colorElement
-                        )
-                        Text(
-                            text = currentFoodElement.calories.toString(),
-                            fontSize = textSizeBottomSheet,
-                            color = colorElement
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = padding)
-                            .height(50.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_clock),
-                            contentDescription = null,
-                            modifier = Modifier.size(sizeIcon).padding(end = padding),
-                            tint = colorElement
-                        )
-                        Text(
-                            text = currentFoodElement.time,
-                            fontSize = textSizeBottomSheet,
-                            color = colorElement
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = padding)
-                            .height(50.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_icon),
-                            contentDescription = null,
-                            modifier = Modifier.size(sizeIcon).padding(end = padding),
-                            tint = colorElement
-                        )
-                        Text(text = currentFoodElement.emogi, fontSize = textSizeBottomSheet, color = colorElement)
-                    }
+                    Text(
+                        text = "Удалить(стыдно стало)",
+                        style = MaterialTheme.typography.h6,
+                        color = Color.White
+                    )
                 }
 
             }
