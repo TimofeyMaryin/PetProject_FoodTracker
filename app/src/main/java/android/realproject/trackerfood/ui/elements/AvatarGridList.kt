@@ -1,6 +1,8 @@
 package android.realproject.trackerfood.ui.elements
 
 import android.realproject.trackerfood.data.viewModel.SelectImageViewModel
+import android.realproject.trackerfood.utils.LIST_OF_AVATAR
+import android.realproject.trackerfood.utils.LIST_OF_IMAGE_BG
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,10 +39,10 @@ fun AvatarGridList(
             .fillMaxWidth()
             .then(modifier)
     ) {
-        items(viewModel.imageUrl.size) {
+        items(LIST_OF_AVATAR.size) {
             Container {
                 AsyncImage(
-                    model = viewModel.imageUrl[it],
+                    model = LIST_OF_AVATAR[it],
                     contentDescription = null,
                     modifier = Modifier
                         .clickable { viewModel.selectImage(it) }

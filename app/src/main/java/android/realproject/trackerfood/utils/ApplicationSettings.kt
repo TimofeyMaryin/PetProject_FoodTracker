@@ -16,6 +16,4 @@ object ApplicationSettings {
 
     var blackOutBg by mutableStateOf(.6f)
 
-
-
 }

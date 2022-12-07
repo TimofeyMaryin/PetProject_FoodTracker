@@ -5,17 +5,10 @@ import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.data.viewModel.SettingViewModel
 import android.realproject.trackerfood.ui.elements.*
 import android.realproject.trackerfood.ui.elements.alert.AlertContainer
-import androidx.compose.foundation.layout.Box
+import android.realproject.trackerfood.ui.elements.alert.WarningAlert
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.FontWeight.Companion.Bold
-import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.compose.ui.unit.dp
@@ -25,7 +18,7 @@ fun SettingFragment(
     navController: NavController,
     addFoodViewModel: AddFoodViewModel,
     settingViewModel: SettingViewModel,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
 ) {
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
@@ -66,7 +59,11 @@ fun SettingFragment(
         )
     }
 
+    AlertContainer(
+        contentAlert = { WarningAlert(settingViewModel = settingViewModel) },
+        openDialog = settingViewModel.userAgreeWarning
+    ) {}
+
 
 }
-
 

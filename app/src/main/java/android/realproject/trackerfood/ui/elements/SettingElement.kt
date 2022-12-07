@@ -8,7 +8,9 @@ import android.realproject.trackerfood.ui.elements.alert.SetBorderRadiusAlert
 import android.realproject.trackerfood.ui.elements.alert.SettingAlert
 import android.realproject.trackerfood.utils.ApplicationSettings
 import android.text.BoringLayout
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,7 +22,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.colorspace.WhitePoint
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -45,7 +49,14 @@ fun SettingElement(
                 )
             )
             .fillMaxWidth(.95f)
-            .fillMaxHeight(.75f)
+            .fillMaxHeight(.7f)
+            .border(
+                BorderStroke(1.dp, brush = Brush.verticalGradient(
+                    .0f to Color.White,
+                    1f to Color.Transparent
+                )),
+                RoundedCornerShape(topStart = ApplicationSettings.borderRadius, topEnd = ApplicationSettings.borderRadius)
+            )
             .background(Color.Black.copy(ApplicationSettings.alphaElement))
             .then(modifier),
         horizontalAlignment = Alignment.Start

@@ -1,6 +1,7 @@
 package android.realproject.trackerfood.ui.elements
 
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
+import android.realproject.trackerfood.utils.LIST_OF_EMOJI
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
@@ -23,12 +24,12 @@ fun AlertDialogEmogiElement(
     LazyVerticalGrid(
         GridCells.Fixed(6),
     ) {
-        items(addFoodViewModel.listOfEmoji.size) {
+        items(LIST_OF_EMOJI.size) {
             Text(
-                text = addFoodViewModel.listOfEmoji[it],
+                text = LIST_OF_EMOJI[it],
                 modifier = Modifier
                     .clickable {
-                        addFoodViewModel.emojiToFood = addFoodViewModel.listOfEmoji[it]
+                        addFoodViewModel.emojiToFood = LIST_OF_EMOJI[it]
                         addFoodViewModel.closeAlertDialog()
                     }
                     .padding(5.dp),

@@ -63,7 +63,7 @@ fun ApplicationNavHost(
                 navController,
                 addFoodViewModel,
                 settingViewModel = settingViewModel,
-                mainViewModel = viewModel
+                mainViewModel = viewModel,
             )
         }
 

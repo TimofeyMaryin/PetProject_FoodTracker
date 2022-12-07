@@ -59,14 +59,9 @@ fun ListFoodFragment(
         sheetContent = {
             val currentFoodElement =
                 if (
-                    viewModel
-                        .getFoodByData(
-                            Date.getDayFood(Date.getCurrentDate())
-                        ).size != 0)
-                    viewModel.getFoodByData(
-                        Date.getDayFood(
-                            Date.getCurrentDate())
-                    )[viewModel.indexTouchProductIndex]
+                    viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate())).size != 0
+                )
+                    viewModel.getFoodByData(Date.getDayFood(Date.getCurrentDate()))[viewModel.indexTouchProductIndex]
                 else null
 
             ConstraintLayout(
@@ -178,30 +173,6 @@ fun ListFoodFragment(
                         }
                     }
 
-                }
-                Button(
-                    onClick = {
-                        coroutineScope.launch {
-                            viewModel.deleteFood(currentFoodElement!!)
-                            bottomSheetScaffoldState.bottomSheetState.collapse()
-                        }
-
-                    },
-                    modifier = Modifier
-                        .background(Color(0xFF9E2927))
-                        .fillMaxWidth()
-                        .constrainAs(delButton) {
-                            bottom.linkTo(parent.bottom)
-                        },
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(0xFF9E2927)
-                    )
-                ) {
-                    Text(
-                        text = "Удалить(стыдно стало)",
-                        style = MaterialTheme.typography.h6,
-                        color = Color.White
-                    )
                 }
 
             }

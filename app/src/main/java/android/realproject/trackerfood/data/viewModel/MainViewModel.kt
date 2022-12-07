@@ -39,26 +39,9 @@ class MainViewModel(
 
 
     fun calculateCaloric(data: String): Int = calcCaloricByDay(data = data)
-//    fun hintCaloricElement(index: Int): HintCaloricModel {
-//        return when(index) {
-//            0 -> { HintCaloricModel("За день") {} }
-//            1 -> { HintCaloricModel("За неделю") {} }
-//            2 -> { HintCaloricModel("За месяц") {} }
-//            3 -> { HintCaloricModel("За год") {} }
-//            else -> { HintCaloricModel("Пошел нахуй") {} }
-//        }
-//    }
+
 
     var showOverview by mutableStateOf(false)
-    fun overViewCaloricElement(index: Int): HintCaloricModel{
-        return when(index){
-            0 -> HintCaloricModel("Overview by day") {}
-            1 -> HintCaloricModel("Overview by week") {}
-            2 -> HintCaloricModel("Overview by month") {}
-            3 -> HintCaloricModel("Overview by year"){}
-            else -> HintCaloricModel("Нахуй иди") {}
-        }
-    }
 
     private fun calcCaloricByDay(data: String): Int {
         var res by mutableStateOf(0)

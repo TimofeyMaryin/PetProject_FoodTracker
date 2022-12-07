@@ -92,13 +92,7 @@ fun CountCaloric(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(text = "За день", color = Color.White)
-                IconButton(onClick = { viewModel.showOverview = !viewModel.showOverview }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_graph),
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                }
+
             }
         } else {
             Box(

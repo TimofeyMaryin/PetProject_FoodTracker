@@ -2,6 +2,7 @@ package android.realproject.trackerfood.ui.elements
 
 import android.realproject.trackerfood.data.viewModel.AddFoodViewModel
 import android.realproject.trackerfood.model.navigation.Screen
+import android.realproject.trackerfood.utils.LIST_OF_PRODUCT_NAME_HINT
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
@@ -46,7 +47,7 @@ fun ApplicationBottomBar(
                  selectedContentColor = Color.White,
                  unselectedContentColor = Color.White.copy(0.4f),
                  onClick = {
-                     randIndex = Random.nextInt(from = 0,until = addFoodViewModel.listOfProductName.size)
+                     randIndex = Random.nextInt(from = 0,until = LIST_OF_PRODUCT_NAME_HINT.size)
 
                      if (item.route == Screen.AddFoodScreen.route) {
 

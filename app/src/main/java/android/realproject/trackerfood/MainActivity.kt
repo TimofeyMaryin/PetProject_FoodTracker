@@ -27,9 +27,12 @@ import androidx.navigation.compose.rememberNavController
 
 
 
+const val TABLE_NAME = "user_settings"
+const val IS_USER_AGREE = "user_agree"
 
 class MainActivity : ComponentActivity() {
-
+    private var sharedPreferences: SharedPreferences? = null
+    private var isUserAgree: Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,15 +41,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             TrackerFoodTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
-
-
-
+                    sharedPreferences = getSharedPreferences(TABLE_NAME, Context.MODE_PRIVATE)
+                    isUserAgree = sharedPreferences?.getBoolean(IS_USER_AGREE, false)!!
 
                     val navController = rememberNavController()
                     val mainViewModel: MainViewModel by viewModels(
@@ -75,7 +75,8 @@ class MainActivity : ComponentActivity() {
                     val settingViewModel: SettingViewModel by viewModels(
                         factoryProducer = {
                             SettingViewModelFactory(
-                                navController = navController
+                                navController = navController,
+                                pref = sharedPreferences!!
                             )
                         }
                     )
@@ -101,14 +102,10 @@ class MainActivity : ComponentActivity() {
                         selectContentForBgViewModel = selectContentForBgViewModel,
                         addFoodHintViewModel = addFoodHintViewModel
                     )
-
-
                 }
             }
         }
     }
-
-
 
 
 }

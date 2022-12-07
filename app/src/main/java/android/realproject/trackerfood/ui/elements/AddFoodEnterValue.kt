@@ -6,6 +6,7 @@ import android.realproject.trackerfood.data.viewModel.AlertViewModel
 import android.realproject.trackerfood.data.viewModel.MainViewModel
 import android.realproject.trackerfood.ui.elements.alert.AlertContainer
 import android.realproject.trackerfood.ui.elements.alert.HintCaloriesAlert
+import android.realproject.trackerfood.utils.LIST_OF_PRODUCT_NAME_HINT
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -58,7 +59,7 @@ fun AddFoodEnterValue(
             AppTextField(
                 value = addFoodViewModel.foodName,
                 onChangeValue = { addFoodViewModel.setCountCalorieValue(it, 1) },
-                placeholder = addFoodViewModel.listOfProductName[randomFoodIndex],
+                placeholder = LIST_OF_PRODUCT_NAME_HINT[randomFoodIndex],
                 isTrailingIcon = true,
                 keyboardType = KeyboardType.Text,
                 content = {

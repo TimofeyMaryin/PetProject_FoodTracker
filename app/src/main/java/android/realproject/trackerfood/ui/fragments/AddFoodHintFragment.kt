@@ -11,15 +11,18 @@ import android.realproject.trackerfood.ui.elements.AppBottomBarAddFoodElement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
 
 @Composable
 fun AddFoodHintFragment(
@@ -61,6 +64,8 @@ fun AddFoodHintFragment(
                         emogi = addFoodViewModel.emojiToFood
                     )
                 )
+                addFoodHintViewModel.changeValue("", 0)
+                addFoodHintViewModel.changeValue("", 1)
                 navController.popBackStack()
             }
         )
@@ -91,9 +96,14 @@ private fun PoleFillData(
 
             HintTextField(
                 value = viewModel.foodCaloric,
-                onChangeValue = { viewModel.changeValue(it, 1) },
+                onChangeValue = {
+                    if(it.isDigitsOnly()){
+                        viewModel.changeValue(it, 1)
+                    }
+                },
                 icon = R.drawable.ic_scale,
-                placeHolder = "Количесво калорий за 100 грамм"
+                placeHolder = "Количесво калорий за 100 грамм",
+                keyboardType = KeyboardType.Number
             )
         }
 
@@ -105,7 +115,8 @@ private fun HintTextField(
     value: String,
     onChangeValue: (String) -> Unit,
     icon: Int,
-    placeHolder: String
+    placeHolder: String,
+    keyboardType: KeyboardType = KeyboardType.Text
 ) = TextField(
     value = value,
     onValueChange = { onChangeValue(it) },
@@ -128,7 +139,8 @@ private fun HintTextField(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
         disabledIndicatorColor = Color.Transparent
-    )
+    ),
+    keyboardOptions = KeyboardOptions(keyboardType = keyboardType)
 )
 
 @Composable

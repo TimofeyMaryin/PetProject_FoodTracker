@@ -3,6 +3,8 @@ package android.realproject.trackerfood.ui.fragments
 import android.realproject.trackerfood.data.viewModel.SelectContentForBgViewModel
 import android.realproject.trackerfood.ui.elements.TopBarSelectFragment
 import android.realproject.trackerfood.utils.ApplicationSettings
+import android.realproject.trackerfood.utils.LIST_COLOR_BG
+import android.realproject.trackerfood.utils.LIST_OF_IMAGE_BG
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -48,16 +50,16 @@ private fun SelectColorFragment(
             columns = GridCells.Fixed(3),
             modifier = Modifier.fillMaxWidth(),
         ) {
-            items(viewModel.listColorBg.size) {
+            items(LIST_COLOR_BG.size) {
                 Container {
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(12.dp))
-                            .background(colorResource(id = viewModel.listColorBg[it]))
+                            .background(colorResource(id = LIST_COLOR_BG[it]))
                             .size(100.dp)
                             .clickable {
-                                ApplicationSettings.bgColor = viewModel.listColorBg[it]
-                                viewModel.selectImageBg(viewModel.listImageUrl[it])
+                                ApplicationSettings.bgColor = LIST_COLOR_BG[it]
+                                viewModel.selectImageBg()
                             }
                     )
 
@@ -85,10 +87,10 @@ private fun SelectImageFragment(
             columns = GridCells.Fixed(2),
             modifier = Modifier.fillMaxWidth(),
         ) {
-            items(viewModel.listImageUrl.size) {
+            items(LIST_OF_IMAGE_BG.size) {
                 Container {
                     AsyncImage(
-                        model =  viewModel.listImageUrl[it],
+                        model =  LIST_OF_IMAGE_BG[it],
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -96,8 +98,8 @@ private fun SelectImageFragment(
                             .width(100.dp)
                             .height(160.dp)
                             .clickable {
-                                ApplicationSettings.bgColor = viewModel.listImageUrl[it]
-                                viewModel.selectImageBg(viewModel.listImageUrl[it])
+                                ApplicationSettings.bgColor = LIST_OF_IMAGE_BG[it]
+                                viewModel.selectImageBg()
                             }
                     )
 

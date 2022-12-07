@@ -18,13 +18,5 @@ class AddFoodHintViewModel: ViewModel() {
         }
     }
 
-    private fun validateCurrentEnterEmojiData(): Boolean {
-        return true
-    }
 
 }
-
-// 😂
-// " 😔 "
-
-// 🥗
