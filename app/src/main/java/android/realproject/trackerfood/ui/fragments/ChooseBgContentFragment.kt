@@ -44,7 +44,7 @@ private fun SelectColorFragment(
         TopBarSelectFragment(
             modifier = Modifier.fillMaxWidth(),
             navController = navController,
-            text = "Выбери цвет, дэб"
+            text = "Выбери цвет для фона"
         )
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
@@ -81,7 +81,7 @@ private fun SelectImageFragment(
         TopBarSelectFragment(
             modifier = Modifier.fillMaxWidth(),
             navController = navController,
-            text = "Выбери фоновую картинку, крутой поц"
+            text = "Выбери фоновую картинку"
         )
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),

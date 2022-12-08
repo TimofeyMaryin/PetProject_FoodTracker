@@ -8,6 +8,7 @@ import android.realproject.trackerfood.model.navigation.Screen
 import android.realproject.trackerfood.ui.elements.alert.ActionForAvatarsAlert
 import android.realproject.trackerfood.ui.elements.alert.AlertContainer
 import android.realproject.trackerfood.utils.ApplicationSettings
+import android.realproject.trackerfood.utils.LIST_OF_MOTIVATION_PHRASE
 import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -86,13 +87,12 @@ fun AppTopBar(
                 fontWeight = FontWeight.Bold,
             )
 
-            Log.e("AppTopBar", "RandomInd: $randomInd", )
             Text(
-                text = viewModel.listOfMotivationPhrases[randomInd],
+                text = LIST_OF_MOTIVATION_PHRASE[randomInd],
                 style = MaterialTheme.typography.body2,
                 color = Color.White.copy(.6f),
                 modifier = Modifier.clickable {
-                    randomInd = Random.nextInt(from = 0, until = viewModel.listOfMotivationPhrases.size)
+                    randomInd = Random.nextInt(from = 0, until = LIST_OF_MOTIVATION_PHRASE.size)
                 }
             )
 

@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 
 object ApplicationSettings {
     var bgColor: Any by mutableStateOf(R.color.black)
-    var alphaElement: Float by mutableStateOf( 1f)
+    var alphaElement: Float by mutableStateOf( .6f)
 
     var borderRadiusFloat by mutableStateOf(20f)
     var borderRadius by mutableStateOf(borderRadiusFloat.dp)

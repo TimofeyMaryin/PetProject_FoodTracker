@@ -20,7 +20,6 @@ val LIST_OF_AVATAR = listOf(
     "https://i.pinimg.com/736x/47/64/6d/47646d280b264c572cba58141c05d104.jpg",
     "https://i.pinimg.com/236x/de/62/c0/de62c0ee76baa47852d3fcac9deb2dc0.jpg",
     "https://i.pinimg.com/736x/0b/6c/18/0b6c18ab3bdf1e9c1e4f209a0f0ff7e8.jpg",
-    "https://sun3-11.userapi.com/impg/3ZCdTo-hDwSgEOliaazpmmd8Z_SQeuah5ujXvQ/JAekgMWGIWo.jpg?size=1831x1832&quality=96&sign=d15af942884071e525d8981cb8450a4e&type=album",
     "https://i.pinimg.com/236x/d6/0a/1b/d60a1b5e4cca49a706d250cc7b3136c8.jpg",
     "https://i.pinimg.com/236x/30/78/49/3078491426e9171b385527eb1758bbd1.jpg",
     "https://i.pinimg.com/236x/fa/69/46/fa694651da1d99784706213db7a12a41.jpg",
@@ -30,14 +29,18 @@ val LIST_OF_AVATAR = listOf(
     "https://i.pinimg.com/236x/d1/26/f7/d126f7b03b054af53a85b78857863f02.jpg",
     "https://i.pinimg.com/236x/de/23/f3/de23f34f13f638534dbded09db5c9206.jpg",
     "https://i.pinimg.com/236x/79/52/4a/79524a97f0aefb7e83891fa3fd37d0f5.jpg",
-    "https://sun3-16.userapi.com/impg/512XTcmJgKvxUnuDtDr_qLpHVw5poVWoiCE-4w/5LbQRFoULC8.jpg?size=828x1472&quality=95&sign=3b30a6194801704b145235bf4b95948a&type=album",
     "https://i.pinimg.com/236x/f3/1d/b5/f31db5181042a448b475a6ef18b36675.jpg",
     "https://i.pinimg.com/236x/f0/67/3d/f0673d682ad74b22f9e5a4fe5b2e13ea.jpg",
     "https://i.pinimg.com/236x/d6/7b/c3/d67bc353218e258e27740fda32e0352d.jpg",
     "https://i.pinimg.com/236x/48/b4/4a/48b44ac8432469edb876d6e36c8a2f30.jpg",
-    "https://i.pinimg.com/236x/48/b4/4a/48b44ac8432469edb876d6e36c8a2f30.jpg",
     "https://i.pinimg.com/236x/01/34/98/0134984bc33a7b74f798435d630c082d.jpg",
-    "https://sun9-77.userapi.com/impg/XB2hP8Ss_AN9ShWZBzAafh8j-P7J8DcWzRfAGQ/qwHL4bxLhn0.jpg?size=1080x1080&quality=96&sign=625449da7e65cf8c05b54ee77f0a5f6b&type=album"
+    "https://i.pinimg.com/564x/45/1f/9f/451f9fb99898bad35efb3eed68db98c2.jpg",
+    "https://i.pinimg.com/736x/7f/4e/d3/7f4ed3b445e3cb33c12c3ee27c27e562.jpg",
+    "https://i.pinimg.com/564x/e0/2d/2f/e02d2f082ec800771043b40cc1eed5c9.jpg",
+    "https://i.pinimg.com/236x/16/2b/2c/162b2cdc854fed0ca65cc11c7bb8b414.jpg",
+    "https://i.pinimg.com/236x/13/44/5c/13445c8a4d0a6c29820a6c1a9dea897a.jpg",
+    "https://i.pinimg.com/236x/13/44/5c/13445c8a4d0a6c29820a6c1a9dea897a.jpg",
+    "https://i.pinimg.com/236x/8f/7e/48/8f7e487ec7ead9696c6b849785262413.jpg",
 )
 val LIST_OF_EMOJI = listOf(
     "\uD83C\uDF4F", "\uD83C\uDF4E", "\uD83C\uDF50", "\uD83C\uDF4A", "\uD83C\uDF4B",
@@ -63,12 +66,12 @@ val LIST_OF_EMOJI = listOf(
     "\uD83C\uDF7E", "\uD83E\uDD61", "\uD83E\uDD63"
 )
 val LIST_OF_PRODUCT_NAME_HINT = listOf(
-    "Hamburger",
-    "Pizza",
-    "Potato",
-    "Morkov",
-    "Kapysta",
-    "Poshel nahyi"
+    "Морковь", "Бургер", "Пицца", "Помидорку",
+    "Кефирчик", "Пасекунчики", "Сливочное пиво из Гарри Поттера безалкогольное",
+    "Печенье с предсказаниями китайское",
+    "Домашние сырные палочки", "Картошка, тушенная с курицей в сметанно-сливочном соусе",
+    "Картофельные драники", "Ленивые хачапури",
+    "Рис с овощами и яйцами"
 )
 val LIST_COLOR_BG = listOf(
     R.color.bg1,
@@ -98,12 +101,43 @@ val LIST_OF_IMAGE_BG = listOf(
     "https://i.pinimg.com/236x/47/e3/2a/47e32a172fd9c83f6fb862da33189377.jpg",
     "https://i.pinimg.com/236x/be/0a/cc/be0acc12b25671c5e27b31380e69816c.jpg",
     "https://i.pinimg.com/236x/32/d1/a6/32d1a6a1a056dd5f0d743044f38d2352.jpg",
-    "https://i.pinimg.com/236x/32/d1/a6/32d1a6a1a056dd5f0d743044f38d2352.jpg",
     "https://i.pinimg.com/236x/89/d6/51/89d651fd5996fd063e634196d1519964.jpg",
     "https://i.pinimg.com/236x/f8/13/89/f813897b8a8b736c8f7caa308534aed2.jpg",
-    "https://i.pinimg.com/236x/b0/62/0c/b0620c163b02eadbcbb6f7aad4ce95a0.jpg"
+    "https://i.pinimg.com/236x/b0/62/0c/b0620c163b02eadbcbb6f7aad4ce95a0.jpg",
+    "https://i.pinimg.com/736x/a8/4f/f3/a84ff357f1215ff0ee642779b72c8d1d.jpg",
+    "https://i.pinimg.com/236x/31/c1/61/31c1616164351dabc0bf64e8c3fa6949.jpg",
+    "https://i.pinimg.com/236x/32/9d/9d/329d9d8c239fcf93bae9ed9016ba9091.jpg",
+    "https://i.pinimg.com/236x/fd/a5/0d/fda50d945aa51f61d172ecd9f3154a73.jpg",
+    "https://i.pinimg.com/236x/93/9e/4b/939e4b121cfcb7e7e330fa87965a2da8.jpg",
+    "https://i.pinimg.com/236x/43/72/0c/43720ca261ae8cd3a7085916254bf890.jpg",
+    "https://i.pinimg.com/236x/84/ea/fd/84eafdfec5e1e2b91c76ca26f816829b.jpg",
+    "https://i.pinimg.com/236x/ab/dd/e9/abdde9ceddf3134ecaaa97187d31eb67.jpg",
+    "https://i.pinimg.com/236x/34/07/c3/3407c352bdec4d043511096ba8a5bac7.jpg",
+    "https://i.pinimg.com/236x/99/e8/af/99e8af51c4ad2045335b20a79317abd6.jpg",
+    "https://i.pinimg.com/236x/74/2c/fa/742cfa4ba53cd5c149c22d18c7df5ba3.jpg",
+    "https://i.pinimg.com/236x/38/ab/58/38ab58427140175189547e57ac8ec151.jpg"
 )
 
 
 const val DEFAULT_IMAGE = "https://i.pinimg.com/564x/28/86/8c/28868c4b45558019fa6e3bafd0fc4c1f.jpg"
 
+val LIST_OF_MOTIVATION_PHRASE = listOf(
+    "Отличный день чтобы похудеть © Разраб",
+    "Возьми свои ляшки под упряжку ©Разраб",
+    "Путешествие к тысяче фунтов начинается с одного гамбургера",
+    "Нет ничего лучше, чем прожить жизнь в стремлении стать совершеннее",
+    "Если вы не даете своему телу самое лучшее, то попросту обкрадываете себя",
+    "Начинайте представлять себя таким человеком, каким хотели бы видеть себя",
+    "В конце концов ваше здоровье — ваша ответственность",
+    "Возможность может постучать только один раз, но искушение опирается на дверной звонок",
+    "Голод – это твой друг, он не предаст тебя как еда.",
+    "Фитнесы, диеты это для лошар, а моя фигура идеальный шар...",
+    "Худеешь - грудь сдувается. Грудь растет - толстеет задница... Тяжело быть бабой.",
+    "Пустой кошелёк чистит организм лучше любой из диет.",
+    "Села на диету... Отказалась от пива... Перестала есть пoсле шeсти... И за три недели потеряла... ВНИМАНИЕ !!! ... 21 день весёлoй и счастливой жизни.)))",
+    "Мысли о том, что надо бы сесть на диету, приходят обычно после сытного обеда и исчезают за полчаса до ужина...",
+    "Я теряю вес, но он все время меня находит!",
+    "Скоро лето — привет, диета!",
+    "Лето покажет кто пресс качал, а кто — дверку от холодильника!",
+    "Пора худеть — это когда ты купила обруч, а он тебе как раз."
+)

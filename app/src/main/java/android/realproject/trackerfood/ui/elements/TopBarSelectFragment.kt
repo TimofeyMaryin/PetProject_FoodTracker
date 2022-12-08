@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 fun TopBarSelectFragment(
     modifier: Modifier,
     navController: NavController,
-    text: String = "Доска с фоновыми хуйнями"
+    text: String = "Доска с фоновым контентом"
 ){
     Row(
         modifier = Modifier

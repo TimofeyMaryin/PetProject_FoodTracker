@@ -25,11 +25,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.colorspace.WhitePoint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontSynthesis.Companion.Style
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -49,6 +54,7 @@ fun ListFoodFragment(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
     val textSizeBottomSheet = 22.sp
+    val descTextSizeBottomSheet = 16.sp
     val sizeIcon = 40.dp
     val padding = 10.dp
     val colorElement = Color.White.copy(.4f)
@@ -128,7 +134,14 @@ fun ListFoodFragment(
                                 tint = colorElement
                             )
                             Text(
-                                text = currentFoodElement.calories.toString(),
+                                buildAnnotatedString {
+                                    withStyle(style = SpanStyle(color = Color.White, fontWeight = FontWeight.Bold)) {
+                                        append( "${currentFoodElement.calories}")
+                                    }
+                                    withStyle(style = SpanStyle(color = colorElement, fontWeight = FontWeight.Light, fontSize = descTextSizeBottomSheet)) {
+                                        append(" [калорий]")
+                                    }
+                                },
                                 fontSize = textSizeBottomSheet,
                                 color = colorElement
                             )
@@ -149,7 +162,14 @@ fun ListFoodFragment(
                                 tint = colorElement
                             )
                             Text(
-                                text = currentFoodElement.time,
+                                buildAnnotatedString {
+                                    withStyle(style = SpanStyle(color = Color.White, fontWeight = FontWeight.Bold)) {
+                                        append(currentFoodElement.time)
+                                    }
+                                    withStyle(style = SpanStyle(color = colorElement, fontWeight = FontWeight.Light, fontSize = descTextSizeBottomSheet)) {
+                                        append(" [время создания продукта]")
+                                    }
+                                },
                                 fontSize = textSizeBottomSheet,
                                 color = colorElement
                             )
@@ -169,7 +189,18 @@ fun ListFoodFragment(
                                     .padding(end = padding),
                                 tint = colorElement
                             )
-                            Text(text = currentFoodElement.emogi, fontSize = textSizeBottomSheet, color = colorElement)
+                            Text(
+                                buildAnnotatedString {
+                                    withStyle(style = SpanStyle(color = Color.White, fontWeight = FontWeight.Bold)) {
+                                        append(currentFoodElement.emogi)
+                                    }
+                                    withStyle(style = SpanStyle(color = colorElement, fontWeight = FontWeight.Light, fontSize = descTextSizeBottomSheet)) {
+                                        append(" [иконка твоего рациона]")
+                                    }
+                                },
+                                fontSize = textSizeBottomSheet,
+                                color = colorElement,
+                            )
                         }
                     }
 

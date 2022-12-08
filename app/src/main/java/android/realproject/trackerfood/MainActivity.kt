@@ -1,12 +1,17 @@
 package android.realproject.trackerfood
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.realproject.trackerfood.data.viewModel.*
 import android.realproject.trackerfood.data.viewModel.viewModelFactory.*
 import android.realproject.trackerfood.model.navigation.ApplicationNavHost
+import android.realproject.trackerfood.notify.Notification
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,6 +45,9 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
+
+            scheduleNotification()
+
             TrackerFoodTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -105,6 +113,44 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun scheduleNotification(){
+        val intent = Intent(applicationContext, Notification::class.java)
+        val title = "Title extra"
+        val message = "Message extra"
+        intent.putExtra(Notification().titleExtra, title)
+        intent.putExtra(Notification().messageExtra, message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            Notification().notifyId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val time = getTime()
+        alarmManager.setAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            time,
+            pendingIntent
+        )
+    }
+
+    private fun getTime(): Long {
+        val hourToShowPush = 22
+        val calendar = Calendar.getInstance().apply {
+            if(get(Calendar.HOUR_OF_DAY) >= hourToShowPush){
+                add(Calendar.DAY_OF_MONTH, 1)
+            }
+
+            set(Calendar.HOUR_OF_DAY, hourToShowPush)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        return calendar.timeInMillis
     }
 
 
